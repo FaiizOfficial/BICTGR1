@@ -1,1 +1,1 @@
-# BICTGR1
+(https://faiizofficial.github.io/BICTGR1/)
