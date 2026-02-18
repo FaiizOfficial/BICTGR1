@@ -2,26 +2,111 @@
 <html>
 <head>
   <title>Form Izzy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      width: 320px;
+      text-align: center;
+      animation: fadeIn 0.6s ease;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #667eea;
+      outline: none;
+      box-shadow: 0 0 5px rgba(102,126,234,0.5);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #667eea;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #5a67d8;
+    }
+
+    .success {
+      color: green;
+      margin-top: 10px;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-  <h2>Form Data</h2>
-  <form id="myForm">
-    <input type="text" name="nama" placeholder="Nama" required><br><br>
-    <input type="email" name="email" placeholder="Email" required><br><br>
-    <button type="submit">Kirim</button>
-  </form>
+
+  <div class="card">
+    <h2>Form Izzy 🚀</h2>
+
+    <form id="myForm">
+      <input type="text" name="nama" placeholder="Masukkan Nama" required>
+      <input type="email" name="email" placeholder="Masukkan Email" required>
+      <button type="submit">Kirim</button>
+    </form>
+
+    <div class="success" id="successMsg">
+      ✅ Data berhasil dikirim!
+    </div>
+  </div>
 
   <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxhW_ySkdGsGLQoDQyMAUMJsrDtEJnEYHCAxEM2DGg2shCM5EahApC2PxXSJHLwbWpG1Q/exec';
     const form = document.getElementById('myForm');
+    const successMsg = document.getElementById('successMsg');
 
     form.addEventListener('submit', e => {
       e.preventDefault();
       fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => alert("Data terkirim!"))
+        .then(response => {
+          form.reset();
+          successMsg.style.display = "block";
+          setTimeout(() => {
+            successMsg.style.display = "none";
+          }, 3000);
+        })
         .catch(error => alert("Error!"));
     });
   </script>
+
 </body>
 </html>
-
