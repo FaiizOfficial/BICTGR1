@@ -1,112 +1,214 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Form Izzy</title>
+  <title>Laporan SO Harian</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
     }
 
-    .card {
+    .container {
+      max-width: 500px;
+      margin: 30px auto;
       background: white;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      width: 320px;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    h1 {
       text-align: center;
-      animation: fadeIn 0.6s ease;
-    }
-
-    h2 {
       margin-bottom: 20px;
-      color: #333;
     }
 
-    input {
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      font-size: 14px;
-      transition: 0.3s;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
     }
 
-    input:focus {
-      border-color: #667eea;
-      outline: none;
-      box-shadow: 0 0 5px rgba(102,126,234,0.5);
+    textarea {
+      resize: none;
+      height: 60px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 15px;
     }
 
     button {
+      margin-top: 20px;
       width: 100%;
       padding: 12px;
       border: none;
       border-radius: 8px;
-      background: #667eea;
+      background: #4CAF50;
       color: white;
-      font-size: 15px;
+      font-size: 16px;
       cursor: pointer;
-      transition: 0.3s;
     }
 
     button:hover {
-      background: #5a67d8;
+      background: #45a049;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .footer a {
+      text-decoration: none;
+      color: #333;
+      margin: 0 10px;
     }
 
     .success {
+      text-align: center;
       color: green;
-      margin-top: 10px;
       display: none;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <h2>Form Izzy 🚀</h2>
+<div class="container">
+  <h1>LAPORAN SO HARIAN</h1>
 
-    <form id="myForm">
-      <input type="text" name="nama" placeholder="Masukkan Nama" required>
-      <input type="email" name="email" placeholder="Masukkan Email" required>
-      <button type="submit">Kirim</button>
-    </form>
+  <form id="soForm">
+
+    <label>Kode Toko</label>
+    <select name="kode_toko" required>
+      <option value="">Pilih Toko</option>
+      <option value="Toko A">Toko A</option>
+      <option value="Toko B">Toko B</option>
+    </select>
+
+    <label>Tanggal SO</label>
+    <input type="date" name="tanggal" required>
+
+    <label>Officer</label>
+    <select name="officer">
+      <option>BASMAN HAFIZ</option>
+      <option>DEDE ROMANSYAH</option>
+      <option>MARJUKI</option>
+      <option>RIZKI DWI PUTRA</option>
+      <option>SANTO SATRIADI</option>
+      <option>SUHERI</option>
+      <option>YADI JUPRIADI</option>
+    </select>
+
+    <label>Koordinator</label>
+    <select name="koordinator">
+      <option>HERU PRIYANTO</option>
+      <option>VIKHI NOVIAN SHIA</option>
+      <option>SAEFUL BAHRI</option>
+      <option>SYARIFUDIN</option>
+      <option>AHMAD SOLIHIN</option>
+      <option>SAIFUL ANWAR</option>
+      <option>WAHONO</option>
+      <option>ALFI EKA PUTRA SAKTI</option>
+      <option>FEBRIANSYAH</option>
+      <option>DADAN RAMDANI</option>
+      <option>M BAHRULI SURYADI</option>
+      <option>ANDRIAN ADITYA</option>
+      <option>ADI SURYADI</option>
+      <option>M NASRUL NAPIUDIN</option>
+    </select>
+
+    <label>Display</label>
+    <div class="radio-group">
+      <label><input type="radio" name="display" value="Rapih"> Rapih</label>
+      <label><input type="radio" name="display" value="Tidak Rapih"> Tidak Rapih</label>
+    </div>
+
+    <label>Gudang</label>
+    <div class="radio-group">
+      <label><input type="radio" name="gudang" value="Rapih"> Rapih</label>
+      <label><input type="radio" name="gudang" value="Tidak Rapih"> Tidak Rapih</label>
+    </div>
+
+    <label>Keterangan NKL SO</label>
+    <textarea name="keterangan"></textarea>
+
+    <label>Fisik Uang</label>
+    <input type="number" name="fisik_uang">
+
+    <label>Modal Induk</label>
+    <input type="number" name="modal_induk">
+
+    <label>Modal Anak</label>
+    <input type="number" name="modal_anak">
+
+    <label>Modal Point Coffee</label>
+    <input type="number" name="modal_pc">
+
+    <label>Sales</label>
+    <input type="number" name="sales">
+
+    <label>Kas Toko</label>
+    <input type="number" name="kas_toko">
+
+    <label>Personil</label>
+    <input type="number" name="personil">
+
+    <label>Bon</label>
+    <input type="number" name="bon">
+
+    <label>Variance</label>
+    <input type="number" name="variance">
+
+    <label>Tukar DC</label>
+    <input type="number" name="tukar_dc">
+
+    <button type="submit">Submit</button>
 
     <div class="success" id="successMsg">
-      ✅ Data berhasil dikirim!
+      ✅ Laporan berhasil dikirim!
     </div>
+
+  </form>
+
+  <div class="footer">
+    <a href="https://instagram.com/faiizhsn" target="_blank">Instagram</a> |
+    <a href="https://wa.me/6285719289642" target="_blank">WhatsApp</a>
   </div>
+</div>
 
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxhW_ySkdGsGLQoDQyMAUMJsrDtEJnEYHCAxEM2DGg2shCM5EahApC2PxXSJHLwbWpG1Q/exec';
-    const form = document.getElementById('myForm');
-    const successMsg = document.getElementById('successMsg');
+<script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbzJrhK2avHFbgV8XolZjPNi00kadaGZTQ9VJ0tgnj6b1CcWMX-TstNcP5D3-oXOpfNlWg/exec";
+  const form = document.getElementById("soForm");
+  const successMsg = document.getElementById("successMsg");
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => {
-          form.reset();
-          successMsg.style.display = "block";
-          setTimeout(() => {
-            successMsg.style.display = "none";
-          }, 3000);
-        })
-        .catch(error => alert("Error!"));
-    });
-  </script>
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    fetch(scriptURL, { method: "POST", body: new FormData(form)})
+      .then(response => {
+        form.reset();
+        successMsg.style.display = "block";
+        setTimeout(() => {
+          successMsg.style.display = "none";
+        }, 3000);
+      })
+      .catch(error => alert("Gagal kirim data"));
+  });
+</script>
 
 </body>
 </html>
