@@ -844,6 +844,42 @@
       <label><input type="radio" name="gudang" value="Tidak Rapih"> Tidak Rapih</label>
     </div>
 
+    <label>Kondisi Router</label>
+      <select name="kondisi_router">
+        <option value="">-- Pilih Kondisi --</option>
+        <option>Tidak ada Kendala</option>
+        <option>Koneksi Lemot</option>
+        <option>Koneksi gudang lemot</option>
+        <option>Komputer lemot</option>
+        <option>Koneksi tidak sampai gudang</option>
+        <option>Router rusak/tidak ada</option>
+        <option>Kabel Hub rusak</option>
+      </select>
+    
+    <label>Posisi Router</label>
+      <select name="posisi_router">
+        <option value="">-- Pilih Posisi --</option>
+        <option>Pintu Gudang</option>
+        <option>Kasiran</option>
+      </select>
+
+    <label>Posisi Penempatan Router</label>
+      <select name="lantai_router">
+        <option value="">-- Pilih Lantai --</option>
+        <option>Lantai 1</option>
+        <option>Lantai 2</option>
+        <option>Lantai 3</option>
+      </select>
+
+    <label>Nilai Kurang (NK)</label>
+      <input type="number" name="nilai_kurang">
+
+    <label>Nilai Lebih (NL)</label>
+      <input type="number" name="nilai_lebih">
+
+    <label>NKL SO</label>
+      <input type="number" id="nkl_so" name="nkl_so" readonly>
+ 
     <label>Keterangan NKL SO</label>
     <textarea name="keterangan"></textarea>
 
@@ -910,6 +946,10 @@
     fetch(scriptURL, { method: "POST", body: new FormData(form)})
       .then(response => {
         hitungSemua();
+        const nk = Number(document.querySelector('[name="nilai_kurang"]').value) || 0;
+        const nl = Number(document.querySelector('[name="nilai_lebih"]').value) || 0;
+        const nkl = nk + nl;
+        document.getElementById("nkl_so").value = nkl;
         form.reset();
         successMsg.style.display = "block";
         setTimeout(() => {
@@ -951,4 +991,5 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
 
 </body>
 </html>
+
 
