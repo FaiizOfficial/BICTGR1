@@ -1003,5 +1003,19 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
     });
   });
 </script>
+<script>
+  const nkInput = document.querySelector('input[name="nilai_kurang"]');
+  const nlInput = document.querySelector('input[name="nilai_lebih"]');
+  const nklSoInput = document.querySelector('input[name="nkl_so"]');
+
+  function hitungNKLSO() {
+    let nk = parseFloat(nkInput.value) || 0;
+    let nl = parseFloat(nlInput.value) || 0;
+    nklSoInput.value = nk + nl;
+  }
+
+  nkInput.addEventListener("input", hitungNKLSO);
+  nlInput.addEventListener("input", hitungNKLSO);
+</script>
 </body>
 </html>
