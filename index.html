@@ -812,6 +812,7 @@
 
     <label>Officer</label>
     <select name="officer">
+      <option>-- Pilih Officer --</option>
       <option>BASMAN HAFIZ</option>
       <option>DEDE ROMANSYAH</option>
       <option>MARJUKI</option>
@@ -823,6 +824,7 @@
 
     <label>Koordinator</label>
     <select name="koordinator">
+      <option>-- Pilih Koordinator --</option>
       <option>HERU PRIYANTO</option>
       <option>VIKHI NOVIAN SHIA</option>
       <option>SAEFUL BAHRI</option>
@@ -841,14 +843,14 @@
 
     <label>Kondisi Display</label>
     <div class="radio-group">
-      <label><input type="radio" name="display" value="Rapih"> Rapih</label>
-      <label><input type="radio" name="display" value="Tidak Rapih"> Tidak Rapih</label>
+      <label><input type="radio" name="display" value="Rapih" required> Rapih</label>
+      <label><input type="radio" name="display" value="Tidak Rapih" required> Tidak Rapih</label>
     </div>
 
     <label>Kondisi Gudang</label>
     <div class="radio-group">
-      <label><input type="radio" name="gudang" value="Rapih"> Rapih</label>
-      <label><input type="radio" name="gudang" value="Tidak Rapih"> Tidak Rapih</label>
+      <label><input type="radio" name="gudang" value="Rapih" required> Rapih</label>
+      <label><input type="radio" name="gudang" value="Tidak Rapih" required> Tidak Rapih</label>
     </div>
 
     <label>Kondisi Router</label>
@@ -944,7 +946,7 @@
 </div>
 
 <script>
-  const scriptURL = "MASUKKAN_LINK_EXEC_KAMU";
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxf0nwj3P7qI2wdYom2Ucdq86Y7PJVLbiIpBfZT27v-0tTuJbfe-VXC4B_JJH4Kfp2zGA/exec";
   const form = document.getElementById("soForm");
   const successMsg = document.getElementById("successMsg");
 
@@ -1017,5 +1019,23 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
   nkInput.addEventListener("input", hitungNKLSO);
   nlInput.addEventListener("input", hitungNKLSO);
 </script>
+<script>
+  document.getElementById("soForm").addEventListener("submit", function(e) {
+    
+    const inputs = this.querySelectorAll("input, select, textarea");
+    let valid = true;
+
+    inputs.forEach(input => {
+      if (input.hasAttribute("required") && !input.value) {
+        valid = false;
+      }
+    });
+
+    if (!valid) {
+      e.preventDefault();
+      alert("Harap isi semua terlebih dahulu!");
+    }
+  });
+</scrit>
 </body>
 </html>
