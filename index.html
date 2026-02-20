@@ -120,6 +120,38 @@ button:hover {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.option-box {
+  display: flex;
+  gap: 15px;
+  margin-top: 8px;
+}
+
+.option-box input[type="radio"] {
+  display: none;
+}
+
+.option {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.option:hover {
+  background: #f5f5f5;
+}
+
+.option-box input[type="radio"]:checked + .option {
+  background: linear-gradient(135deg, #4CAF50, #2e7d32);
+  color: white;
+  border-color: #2e7d32;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
   </style>
 </head>
 <body>
@@ -870,15 +902,21 @@ button:hover {
     </select>
 
     <label>Kondisi Display</label>
-    <div class="radio-group">
-      <label><input type="radio" name="display" value="Rapih" required> Rapih</label>
-      <label><input type="radio" name="display" value="Tidak Rapih" required> Tidak Rapih</label>
+    <div class="option-box">
+      <input type="radio" id="display_rapih" name="display" value="Rapih" required>
+      <label for="display_rapih" class="option">Rapih</label>
+      
+      <input type="radio" id="display_tidak" name="display" value="Tidak Rapih">
+      <label for="display_tidak" class="option">Tidak Rapih</label>
     </div>
 
     <label>Kondisi Gudang</label>
-    <div class="radio-group">
-      <label><input type="radio" name="gudang" value="Rapih" required> Rapih</label>
-      <label><input type="radio" name="gudang" value="Tidak Rapih" required> Tidak Rapih</label>
+    <div class="option-box">
+      <input type="radio" id="gudang_rapih" name="gudang" value="Rapih" required>
+      <label for="gudang_rapih" class="option">Rapih</label>
+
+       <input type="radio" id="gudang_tidak" name="gudang" value="Tidak Rapih">
+      <label for="gudang_tidak" class="option">Tidak Rapih</label>
     </div>
 
     <label>Kondisi Router</label>
@@ -1067,5 +1105,6 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
 </scrit>
 </body>
 </html>
+
 
 
