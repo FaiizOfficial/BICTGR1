@@ -169,6 +169,51 @@ button:hover {
 .footer-btn:hover {
   background: #6bb7e8;
 }
+
+    .footer {
+  text-align: center;
+  margin-top: 25px;
+}
+
+/* tombol cek laporan */
+.cek-btn {
+  display: block;
+  width: 70%;
+  margin: 15px auto;
+  padding: 10px;
+  background: #7ec8ff; /* biru muda */
+  color: black;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  border: 2px solid #5aaee6;
+  transition: 0.2s;
+}
+
+.cek-btn:hover {
+  background: #5fb6f0;
+}
+
+/* social media */
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 10px;
+}
+
+.social a {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.social i {
+  font-size: 18px;
+}
   </style>
 </head>
 <body>
@@ -1027,13 +1072,24 @@ button:hover {
   </form>
 
   <div class="footer">
-    <a href="https://docs.google.com/spreadsheets/d/1--15lTnPMyNCLs7S2svKHWqvjzzfl5FavUs5lLoi88w/edit?usp=drivesdk" target="_blank">
-      📊 CEK LAPORAN SO
+    <div class="footer">
+
+  <a href="https://docs.google.com/spreadsheets/d/1--15lTnPMyNCLs7S2svKHWqvjzzfl5FavUs5lLoi88w/edit?usp=drivesdk"
+     target="_blank"
+     class="cek-btn">
+     📊 CEK LAPORAN SO
+  </a>
+
+  <div class="social">
+    <a href="https://instagram.com/faiizhsn" target="_blank">
+      <i class="fa-brands fa-instagram"></i> faiizhsn
     </a>
-    <br><br>
-    <a href="https://instagram.com/faiizhsn" target="_blank">Instagram @faiizhsn</a> |
-    <a href="https://wa.me/6285719289642" target="_blank">WhatsApp Mued Ganzzz</a>
+
+    <a href="https://wa.me/6285719289642" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> Mued
+    </a>
   </div>
+
 </div>
 
 <script>
@@ -1122,6 +1178,7 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
 </script>
 </body>
 </html>
+
 
 
 
