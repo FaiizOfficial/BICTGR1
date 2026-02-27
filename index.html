@@ -219,6 +219,18 @@ button:hover {
 .social i {
   font-size: 18px;
 }
+
+<style>
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 3px;
+  }
+
+  .input-error {
+    border: 2px solid red !important;
+  }
+</style>
   </style>
 </head>
 <body>
@@ -938,7 +950,7 @@ button:hover {
     <input type="date" name="tanggal" required>
 
     <label>OFFICER</label>
-    <select name="officer">
+    <select name="officer" required>
       <option>-- Pilih Officer --</option>
       <option>BASMAN HAFIZ</option>
       <option>DEDE ROMANSYAH</option>
@@ -950,7 +962,7 @@ button:hover {
     </select>
 
     <label>KOORDINATOR</label>
-    <select name="koordinator">
+    <select name="koordinator" required>
       <option>-- Pilih Koordinator --</option>
       <option>HERU PRIYANTO</option>
       <option>VIKHI NOVIAN SHIA</option>
@@ -974,7 +986,7 @@ button:hover {
       <input type="radio" id="display_rapih" name="display" value="Rapih" required>
       <label for="display_rapih" class="option">Rapih</label>
       
-      <input type="radio" id="display_tidak" name="display" value="Tidak Rapih">
+      <input type="radio" id="display_tidak" name="display" value="Tidak Rapih" required>>
       <label for="display_tidak" class="option">Tidak Rapih</label>
     </div>
 
@@ -983,12 +995,12 @@ button:hover {
       <input type="radio" id="gudang_rapih" name="gudang" value="Rapih" required>
       <label for="gudang_rapih" class="option">Rapih</label>
 
-       <input type="radio" id="gudang_tidak" name="gudang" value="Tidak Rapih">
+       <input type="radio" id="gudang_tidak" name="gudang" value="Tidak Rapih"> required>
       <label for="gudang_tidak" class="option">Tidak Rapih</label>
     </div>
 
     <label>KONDISI ROUTER</label>
-      <select name="kondisi_router">
+      <select name="kondisi_router" required>
         <option value="">-- Pilih Kondisi --</option>
         <option>Tidak ada Kendala</option>
         <option>Koneksi Lemot</option>
@@ -1000,14 +1012,14 @@ button:hover {
       </select>
     
     <label>POSISI ROUTER</label>
-      <select name="posisi_router">
+      <select name="posisi_router" required>
         <option value="">-- Pilih Posisi --</option>
         <option>Pintu Gudang</option>
         <option>Kasiran</option>
       </select>
 
     <label>POSISI PENEMPATAN ROUTER</label>
-      <select name="penempatan_router">
+      <select name="penempatan_router" required>
         <option value="">-- Pilih Lantai --</option>
         <option>Lantai 1</option>
         <option>Lantai 2</option>
@@ -1015,55 +1027,55 @@ button:hover {
       </select>
 
     <label>NILAI KURANG (NK)</label>
-      <input type="number" name="nilai_kurang">
+      <input type="number" name="nilai_kurang" required>
 
     <label>NILAI LEBIH (NL)</label>
-      <input type="number" name="nilai_lebih">
+      <input type="number" name="nilai_lebih" required>
 
     <label>NILAI KURANG LEBIH (NKL)</label>
       <input type="number" id="nkl_so" name="nkl_so" readonly>
  
     <label>KETERANGAN NKL SO</label>
-    <textarea name="keterangan"></textarea>
+    <textarea name="keterangan" required></textarea>
 
     <label>FISIK UANG</label>
-    <input type="number" name="fisik_uang">
+    <input type="number" name="fisik_uang" required>
 
     <label>MODAL INDUK</label>
-    <input type="number" name="modal_induk">
+    <input type="number" name="modal_induk" required>
 
     <label>MODAL ANAK</label>
-    <input type="number" name="modal_anak">
+    <input type="number" name="modal_anak" required>>
 
     <label>MODAL POINT COFFE</label>
-    <input type="number" name="modal_pc">
+    <input type="number" name="modal_pc" required>>
 
     <label>TOTAL DANA SALES</label>
     <input type="number" id="dana_sales" readonly>
 
     <label>UANG SALES</label>
-    <input type="number" name="sales">
+    <input type="number" name="sales" required>>
 
     <label>KAS TOKO</label>
-    <input type="number" name="kas_toko">
+    <input type="number" name="kas_toko" required>>
 
     <label>TOTAL DANA KAS</label>
     <input type="number" id="dana_kas" readonly>
 
     <label>PERSONIL</label>
-    <input type="number" name="personil">
+    <input type="number" name="personil" required>>
 
     <label>BON RRAK</label>
-    <input type="number" name="bon">
+    <input type="number" name="bon" required>>
 
     <label>VARIANCE</label>
-    <input type="number" name="variance">
+    <input type="number" name="variance" required>>
 
     <label>TUKAR DC</label>
-    <input type="number" name="tukar_dc">
+    <input type="number" name="tukar_dc" required>>
 
     <label>LAIN LAIN</label>
-    <input type="number" name="lain_lain">
+    <input type="number" name="lain_lain" required>>
 
     <label>GRAND TOTAL</label>
     <input type="number" id="grand_total" readonly>
@@ -1102,7 +1114,55 @@ button:hover {
   const form = document.getElementById("soForm");
   const successMsg = document.getElementById("successMsg");
 
-  form.addEventListener("submit", e => {
+  form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let valid = true;
+
+  // Hapus error lama dulu
+  document.querySelectorAll(".error").forEach(el => el.remove());
+  document.querySelectorAll(".input-error").forEach(el => el.classList.remove("input-error"));
+
+  const requiredFields = form.querySelectorAll("[required]");
+
+  requiredFields.forEach(field => {
+
+    if (field.type === "radio") {
+      const name = field.name;
+      const checked = form.querySelector(`input[name="${name}"]:checked`);
+      if (!checked) {
+        valid = false;
+        const parent = field.closest(".option-box");
+        showError(parent);
+      }
+    } 
+    else if (!field.value) {
+      valid = false;
+      field.classList.add("input-error");
+      showError(field);
+    }
+  });
+
+  if (!valid) return;
+
+  // Kalau valid lanjut kirim
+  fetch(scriptURL, { method: "POST", body: new FormData(form)})
+    .then(response => {
+      form.reset();
+      successMsg.style.display = "block";
+      setTimeout(() => {
+        successMsg.style.display = "none";
+      }, 3000);
+    })
+    .catch(error => alert("Gagal kirim data"));
+});
+
+function showError(element) {
+  const error = document.createElement("div");
+  error.className = "error";
+  error.innerText = "Wajib diisi terlebih dahulu!";
+  element.after(error);
+}
   e.preventDefault();
 
   // VALIDASI DULU
@@ -1183,9 +1243,3 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
 </script>
 </body>
 </html>
-
-
-
-
-
-
