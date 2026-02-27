@@ -986,7 +986,7 @@ button:hover {
       <input type="radio" id="display_rapih" name="display" value="Rapih" required>
       <label for="display_rapih" class="option">Rapih</label>
       
-      <input type="radio" id="display_tidak" name="display" value="Tidak Rapih" required>>
+      <input type="radio" id="display_tidak" name="display" value="Tidak Rapih" required>
       <label for="display_tidak" class="option">Tidak Rapih</label>
     </div>
 
@@ -1045,7 +1045,7 @@ button:hover {
     <input type="number" name="modal_induk" required>
 
     <label>MODAL ANAK</label>
-    <input type="number" name="modal_anak" required>>
+    <input type="number" name="modal_anak" required>
 
     <label>MODAL POINT COFFE</label>
     <input type="number" name="modal_pc" required>>
@@ -1057,25 +1057,25 @@ button:hover {
     <input type="number" name="sales" required>>
 
     <label>KAS TOKO</label>
-    <input type="number" name="kas_toko" required>>
+    <input type="number" name="kas_toko" required>
 
     <label>TOTAL DANA KAS</label>
     <input type="number" id="dana_kas" readonly>
 
     <label>PERSONIL</label>
-    <input type="number" name="personil" required>>
+    <input type="number" name="personil" required>
 
     <label>BON RRAK</label>
     <input type="number" name="bon" required>>
 
     <label>VARIANCE</label>
-    <input type="number" name="variance" required>>
+    <input type="number" name="variance" required>
 
     <label>TUKAR DC</label>
     <input type="number" name="tukar_dc" required>>
 
     <label>LAIN LAIN</label>
-    <input type="number" name="lain_lain" required>>
+    <input type="number" name="lain_lain" required>
 
     <label>GRAND TOTAL</label>
     <input type="number" id="grand_total" readonly>
@@ -1119,7 +1119,6 @@ button:hover {
 
   let valid = true;
 
-  // Hapus error lama dulu
   document.querySelectorAll(".error").forEach(el => el.remove());
   document.querySelectorAll(".input-error").forEach(el => el.classList.remove("input-error"));
 
@@ -1128,12 +1127,10 @@ button:hover {
   requiredFields.forEach(field => {
 
     if (field.type === "radio") {
-      const name = field.name;
-      const checked = form.querySelector(`input[name="${name}"]:checked`);
+      const checked = form.querySelector(`input[name="${field.name}"]:checked`);
       if (!checked) {
         valid = false;
-        const parent = field.closest(".option-box");
-        showError(parent);
+        showError(field.closest(".option-box"));
       }
     } 
     else if (!field.value) {
@@ -1145,16 +1142,13 @@ button:hover {
 
   if (!valid) return;
 
-  // Kalau valid lanjut kirim
   fetch(scriptURL, { method: "POST", body: new FormData(form)})
-    .then(response => {
+    .then(() => {
       form.reset();
       successMsg.style.display = "block";
-      setTimeout(() => {
-        successMsg.style.display = "none";
-      }, 3000);
+      setTimeout(() => successMsg.style.display = "none", 3000);
     })
-    .catch(error => alert("Gagal kirim data"));
+    .catch(() => alert("Gagal kirim data"));
 });
 
 function showError(element) {
@@ -1163,31 +1157,6 @@ function showError(element) {
   error.innerText = "Wajib diisi terlebih dahulu!";
   element.after(error);
 }
-  e.preventDefault();
-
-  // VALIDASI DULU
-  const inputs = form.querySelectorAll("input[required], select[required], textarea[required]");
-  let valid = true;
-
-  inputs.forEach(input => {
-    if (!input.value) valid = false;
-  });
-
-  if (!valid) {
-    alert("Harap isi semua terlebih dahulu!");
-    return;
-  }
-
-  fetch(scriptURL, { method: "POST", body: new FormData(form)})
-    .then(response => {
-      form.reset();
-      successMsg.style.display = "block";
-      setTimeout(() => {
-        successMsg.style.display = "none";
-      }, 3000);
-    })
-    .catch(error => alert("Gagal kirim data"));
-  });
 
   function hitungSemua() {
   const fisik = Number(document.querySelector('[name="fisik_uang"]').value) || 0;
