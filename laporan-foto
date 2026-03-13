@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan Before After - Inventory Control</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* VARIABEL WARNA (Seragam dengan Laporan SO Harian) */
+    :root {
+      --primary-blue: #005b9f;
+      --secondary-blue: #00457c;
+      --accent-yellow: #ffd600;
+      --accent-red: #e51d20;
+      --bg-color: #f0f2f5;
+      --card-bg: #ffffff;
+      --text-main: #2b2b2b;
+      --text-muted: #6c757d;
+      --border-color: #dee2e6;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 15px;
+      color: var(--text-main);
+    }
+
+    .container {
+      max-width: 550px;
+      margin: auto;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* HEADER STYLE */
+    .header-card {
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      padding: 25px 20px;
+      border-radius: 20px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 10px 20px rgba(0, 91, 159, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .header-card h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+    .header-card p { margin: 5px 0 0 0; font-size: 13px; color: var(--accent-yellow); font-weight: 600; }
+
+    /* SECTION CARD */
+    .form-section {
+      background: var(--card-bg);
+      padding: 25px 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      margin-bottom: 20px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      margin-top: 0;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px dashed var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* INPUT STYLING */
+    .input-group { margin-bottom: 20px; }
+    label { font-weight: 600; font-size: 13px; margin-bottom: 8px; display: block; color: var(--text-main); }
+    
+    input[type="text"], input[type="date"], select {
+      width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color);
+      box-sizing: border-box; transition: all 0.3s; font-size: 14px; font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+    }
+    input:focus, select:focus {
+      border-color: var(--primary-blue); box-shadow: 0 0 0 3px rgba(0, 91, 159, 0.1); outline: none; background-color: #fff;
+    }
+
+    /* CUSTOM FILE INPUT STYLING */
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      background: #f8f9fa;
+      border: 2px dashed var(--border-color);
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: all 0.3s;
+    }
+
+    input[type="file"]:hover {
+      border-color: var(--primary-blue);
+      background-color: #f0f8ff;
+    }
+
+    /* Mempercantik tombol "Choose File" bawaan browser */
+    input[type="file"]::file-selector-button {
+      background: var(--primary-blue);
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      margin-right: 15px;
+      cursor: pointer;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      transition: 0.3s;
+    }
+
+    input[type="file"]::file-selector-button:hover {
+      background: var(--secondary-blue);
+    }
+
+    /* TOMBOL SUBMIT */
+    button[type="submit"] {
+      width: 100%; padding: 16px; border: none; border-radius: 16px; background: var(--primary-blue);
+      color: white; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s;
+      box-shadow: 0 8px 20px rgba(0, 91, 159, 0.3); font-family: 'Poppins', sans-serif; margin-bottom: 20px;
+    }
+    button[type="submit"]:hover { background: var(--secondary-blue); transform: translateY(-2px); }
+
+    /* FOOTER NAVIGASI */
+    .btn-home {
+      display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; box-sizing: border-box;
+      padding: 14px; background: #fff; color: var(--primary-blue); border-radius: 16px; font-weight: 700;
+      text-decoration: none; border: 2px solid var(--primary-blue); font-size: 14px; margin-bottom: 20px;
+      transition: 0.2s;
+    }
+    .btn-home:hover { background: var(--primary-blue); color: #fff; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <div class="header-card">
+    <h1>DOKUMEN BEFORE - AFTER</h1>
+    <p>INVENTORY CONTROL TANGERANG 1</p>
+  </div>
+
+  <form id="uploadForm">
+
+    <div class="form-section">
+      <h3 class="section-title"><i class="fa-solid fa-store"></i> Data Toko</h3>
+      <div class="input-group">
+        <label>KODE TOKO</label>
+        <input type="text" name="kode_toko" placeholder="Masukkan Kode Toko..." required>
+      </div>
+      <div class="input-group">
+        <label>TANGGAL SO</label>
+        <input type="date" name="tanggal" required>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3 class="section-title"><i class="fa-solid fa-camera-retro"></i> Foto Display</h3>
+      <div class="input-group">
+        <label>UPLOAD FOTO BEFORE SO</label>
+        <input type="file" name="foto_before" accept="image/*" required>
+      </div>
+      <div class="input-group">
+        <label>UPLOAD FOTO AFTER SO</label>
+        <input type="file" name="foto_after" accept="image/*" required>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3 class="section-title"><i class="fa-solid fa-file-invoice"></i> Dokumen SO</h3>
+      <div class="input-group">
+        <label>UPLOAD LHSO</label>
+        <input type="file" name="dokumen_lhso" accept="image/*, application/pdf" required>
+      </div>
+      <div class="input-group">
+        <label>UPLOAD BASO (HASIL ADJUST)</label>
+        <input type="file" name="dokumen_baso" accept="image/*, application/pdf" required>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3 class="section-title"><i class="fa-solid fa-vault"></i> Form SO Brankas</h3>
+      <div class="input-group">
+        <label>UPLOAD FORM SO BRANKAS</label>
+        <input type="file" name="dokumen_brankas" accept="image/*, application/pdf" required>
+      </div>
+    </div>
+
+    <button type="submit">
+      <i class="fa-solid fa-cloud-arrow-up" style="margin-right: 8px;"></i> UPLOAD DOKUMEN
+    </button>
+
+  </form>
+
+  <a href="index.html" class="btn-home">
+    <i class="fa-solid fa-house"></i> KEMBALI KE MENU UTAMA
+  </a>
+
+</div>
+
+</body>
+</html>
