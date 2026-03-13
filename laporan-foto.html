@@ -11,39 +11,41 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-  
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.1/dist/browser-image-compression.js"></script>
 
   <style>
-    /* VARIABEL WARNA */
     :root { --primary-blue: #005b9f; --secondary-blue: #00457c; --accent-yellow: #ffd600; --accent-red: #e51d20; --bg-color: #f0f2f5; --card-bg: #ffffff; --text-main: #2b2b2b; --text-muted: #6c757d; --border-color: #dee2e6; }
     body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); margin: 0; padding: 15px; color: var(--text-main); }
     .container { max-width: 550px; margin: auto; animation: fadeIn 0.5s ease-in-out; }
     .header-card { background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)); padding: 25px 20px; border-radius: 20px; text-align: center; color: white; box-shadow: 0 10px 20px rgba(0, 91, 159, 0.2); margin-bottom: 20px; }
     .header-card h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: 1px; }
     .header-card p { margin: 5px 0 0 0; font-size: 13px; color: var(--accent-yellow); font-weight: 600; }
+    
+    /* STATE SUKSES */
+    .success-container { background: #fff; padding: 40px 20px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 20px; border: 2px solid #28a745; display: none; }
+    .success-container i.icon-success { font-size: 60px; color: #28a745; margin-bottom: 15px; }
+    .success-container h2 { color: #28a745; margin: 0 0 10px 0; font-size: 22px; }
+    .success-container p { color: var(--text-muted); margin-bottom: 25px; font-size: 14px; }
+    .action-buttons { display: flex; flex-direction: column; gap: 12px; }
+    .btn-action { display: flex; justify-content: center; align-items: center; gap: 10px; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 14px; cursor: pointer; border: none; font-family: 'Poppins', sans-serif; }
+    .btn-check { background: #e8f5e9; color: #2e7d32; border: 2px solid #c8e6c9; }
+    .btn-home-success { background: var(--primary-blue); color: white; }
+    .btn-reset { background: transparent; color: var(--text-muted); font-size: 13px; text-decoration: underline; margin-top: 5px; }
+
     .form-section { background: var(--card-bg); padding: 25px 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05); }
     .section-title { font-size: 16px; font-weight: 700; color: var(--primary-blue); margin-top: 0; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px dashed var(--border-color); display: flex; align-items: center; gap: 10px; }
     .input-group { margin-bottom: 20px; position: relative; }
     label { font-weight: 600; font-size: 13px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
     .badge-max { background-color: #e3f2fd; color: var(--primary-blue); padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; border: 1px solid #bbdefb; }
-    input[type="date"], select { width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); box-sizing: border-box; transition: all 0.3s; font-size: 14px; font-family: 'Poppins', sans-serif; background-color: #f8f9fa; }
-    input:focus, select:focus { border-color: var(--primary-blue); box-shadow: 0 0 0 3px rgba(0, 91, 159, 0.1); outline: none; background-color: #fff; }
-    input[type="file"] { width: 100%; padding: 10px; background: #f8f9fa; border: 2px dashed var(--border-color); border-radius: 12px; cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--text-muted); transition: all 0.3s; }
-    input[type="file"]:hover { border-color: var(--primary-blue); background-color: #f0f8ff; }
-    input[type="file"]::file-selector-button { background: var(--primary-blue); color: white; padding: 8px 16px; border: none; border-radius: 8px; margin-right: 15px; cursor: pointer; font-weight: 600; font-family: 'Poppins', sans-serif; transition: 0.3s; }
-    input[type="file"]::file-selector-button:hover { background: var(--secondary-blue); }
+    input[type="date"], select { width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color); box-sizing: border-box; font-size: 14px; font-family: 'Poppins', sans-serif; background-color: #f8f9fa; }
+    input[type="file"] { width: 100%; padding: 10px; background: #f8f9fa; border: 2px dashed var(--border-color); border-radius: 12px; cursor: pointer; font-size: 13px; color: var(--text-muted); }
+    input[type="file"]::file-selector-button { background: var(--primary-blue); color: white; padding: 8px 16px; border: none; border-radius: 8px; margin-right: 15px; cursor: pointer; font-weight: 600; font-family: 'Poppins', sans-serif; }
     .file-warning { color: var(--accent-red); font-size: 12px; font-weight: 600; margin-top: 6px; display: none; }
-    
-    /* Indikator Loading Kompresi */
     .compressing-text { color: #f39c12; font-size: 12px; font-weight: 600; margin-top: 6px; display: none; }
     
     button[type="submit"] { width: 100%; padding: 16px; border: none; border-radius: 16px; background: var(--primary-blue); color: white; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 20px rgba(0, 91, 159, 0.3); font-family: 'Poppins', sans-serif; margin-bottom: 20px; }
-    button[type="submit"]:hover { background: var(--secondary-blue); transform: translateY(-2px); }
-    button[type="submit"]:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
-    
-    .btn-home { display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; box-sizing: border-box; padding: 14px; background: #fff; color: var(--primary-blue); border-radius: 16px; font-weight: 700; text-decoration: none; border: 2px solid var(--primary-blue); font-size: 14px; margin-bottom: 20px; transition: 0.2s; }
-    .btn-home:hover { background: var(--primary-blue); color: #fff; }
+    button[type="submit"]:disabled { background: #6c757d; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-home { display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; box-sizing: border-box; padding: 14px; background: #fff; color: var(--primary-blue); border-radius: 16px; font-weight: 700; text-decoration: none; border: 2px solid var(--primary-blue); font-size: 14px; margin-bottom: 20px; }
     .select2-container--default .select2-selection--single { height: 46px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #f8f9fa; }
     .select2-container--default .select2-selection--single .select2-selection__rendered { line-height: 46px; font-family: 'Poppins', sans-serif; font-size: 14px; padding-left: 15px; }
     .select2-container--default .select2-selection--single .select2-selection__arrow { height: 44px; }
@@ -59,15 +61,31 @@
     <p>INVENTORY CONTROL TANGERANG 1</p>
   </div>
 
-  <form id="uploadForm">
+  <div class="success-container" id="successContainer">
+    <i class="fa-solid fa-circle-check icon-success"></i>
+    <h2>Upload Selesai!</h2>
+    <p>Dokumen berhasil tersimpan di Drive dan masuk ke Spreadsheet.</p>
+    <div class="action-buttons">
+      <a href="https://docs.google.com/spreadsheets/d/1YDn5DhDLdRDHDvWhqrLtwN5nB3fswonvFV59c874uI0/edit?usp=sharing" target="_blank" class="btn-action btn-check">
+        <i class="fa-solid fa-table-list"></i> Cek Bukti Upload di Sheets
+      </a>
+      <a href="index.html" class="btn-action btn-home-success">
+        <i class="fa-solid fa-house"></i> Kembali ke Menu Utama
+      </a>
+      <button type="button" class="btn-action btn-reset" onclick="resetForm()">
+        <i class="fa-solid fa-rotate-right"></i> Upload laporan toko lain
+      </button>
+    </div>
+  </div>
 
+  <form id="uploadForm">
     <div class="form-section">
       <h3 class="section-title"><i class="fa-solid fa-store"></i> Data Toko</h3>
       <div class="input-group">
         <label>KODE TOKO</label>
         <select name="kode_toko" id="kode_toko" required>
           <option value=""></option>
-      <option value="TU4R - A Yani Tangerang">TU4R - A Yani Tangerang</option>
+               <option value="TU4R - A Yani Tangerang">TU4R - A Yani Tangerang</option>
       <option value="T1OL - Academia Pavilion">T1OL - Academia Pavilion</option>
       <option value="T95E - Ahmad Dahlan 02">T95E - Ahmad Dahlan 02</option>
       <option value="FV46 - Ahmad Yani">FV46 - Ahmad Yani</option>
@@ -779,69 +797,64 @@
 
     <div class="form-section">
       <h3 class="section-title"><i class="fa-solid fa-camera-retro"></i> Foto Display</h3>
-      
       <div class="input-group">
         <label>UPLOAD FOTO BEFORE SO <span class="badge-max">Max 6 Foto</span></label>
         <input type="file" name="foto_before" accept="image/*" multiple data-max="6" required>
         <div class="file-warning" id="warn_foto_before"><i class="fa-solid fa-circle-exclamation"></i> Max 6 Foto! Silakan pilih ulang.</div>
-        <div class="compressing-text" id="comp_foto_before"><i class="fa-solid fa-spinner fa-spin"></i> Mengompres foto agar hemat kuota...</div>
+        <div class="compressing-text" id="comp_foto_before"><i class="fa-solid fa-spinner fa-spin"></i> Mengompres foto...</div>
       </div>
-      
       <div class="input-group">
         <label>UPLOAD FOTO AFTER SO <span class="badge-max">Max 6 Foto</span></label>
         <input type="file" name="foto_after" accept="image/*" multiple data-max="6" required>
         <div class="file-warning" id="warn_foto_after"><i class="fa-solid fa-circle-exclamation"></i> Max 6 Foto! Silakan pilih ulang.</div>
-        <div class="compressing-text" id="comp_foto_after"><i class="fa-solid fa-spinner fa-spin"></i> Mengompres foto agar hemat kuota...</div>
+        <div class="compressing-text" id="comp_foto_after"><i class="fa-solid fa-spinner fa-spin"></i> Mengompres foto...</div>
       </div>
     </div>
 
     <div class="form-section">
       <h3 class="section-title"><i class="fa-solid fa-file-invoice"></i> Dokumen SO</h3>
-      
       <div class="input-group">
         <label>UPLOAD LHSO <span class="badge-max">Max 6 File</span></label>
         <input type="file" name="dokumen_lhso" accept="image/*, application/pdf" multiple data-max="6" required>
         <div class="file-warning" id="warn_dokumen_lhso"><i class="fa-solid fa-circle-exclamation"></i> Max 6 File! Silakan pilih ulang.</div>
-        <div class="compressing-text" id="comp_dokumen_lhso"><i class="fa-solid fa-spinner fa-spin"></i> Mengompres foto agar hemat kuota...</div>
+        <div class="compressing-text" id="comp_dokumen_lhso"><i class="fa-solid fa-spinner fa-spin"></i> Mengompres foto...</div>
       </div>
-      
       <div class="input-group">
         <label>UPLOAD BASO (HASIL ADJUST) <span class="badge-max">Max 3 File</span></label>
         <input type="file" name="dokumen_baso" accept="image/*, application/pdf" multiple data-max="3" required>
         <div class="file-warning" id="warn_dokumen_baso"><i class="fa-solid fa-circle-exclamation"></i> Max 3 File! Silakan pilih ulang.</div>
-        <div class="compressing-text" id="comp_dokumen_baso"><i class="fa-solid fa-spinner fa-spin"></i> Mengompres foto agar hemat kuota...</div>
+        <div class="compressing-text" id="comp_dokumen_baso"><i class="fa-solid fa-spinner fa-spin"></i> Mengompres foto...</div>
       </div>
     </div>
 
     <div class="form-section">
       <h3 class="section-title"><i class="fa-solid fa-vault"></i> Form SO Brankas</h3>
-      
       <div class="input-group">
         <label>UPLOAD FORM SO BRANKAS <span class="badge-max">Max 2 File</span></label>
         <input type="file" name="dokumen_brankas" accept="image/*, application/pdf" multiple data-max="2" required>
         <div class="file-warning" id="warn_dokumen_brankas"><i class="fa-solid fa-circle-exclamation"></i> Max 2 File! Silakan pilih ulang.</div>
-        <div class="compressing-text" id="comp_dokumen_brankas"><i class="fa-solid fa-spinner fa-spin"></i> Mengompres foto agar hemat kuota...</div>
+        <div class="compressing-text" id="comp_dokumen_brankas"><i class="fa-solid fa-spinner fa-spin"></i> Mengompres foto...</div>
       </div>
     </div>
 
     <button type="submit" id="submitBtn">
-      <i class="fa-solid fa-cloud-arrow-up" style="margin-right: 8px;"></i> UPLOAD DOKUMEN
+      <i class="fa-solid fa-cloud-arrow-up" style="margin-right: 8px;"></i> UPLOAD SEMUA DOKUMEN
     </button>
-
   </form>
 
-  <a href="index.html" class="btn-home">
+  <a href="index.html" class="btn-home" id="btnHomeUtama">
     <i class="fa-solid fa-house"></i> KEMBALI KE MENU UTAMA
   </a>
 
 </div>
 
 <script>
+  // PASTE LINK GOOGLE APPS SCRIPT KAMU DI SINI:
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxw2WHPRhtk8llP2tWsnOeoBPkd5_A8v9uXBfl-XatwESZ61ib_FttTnrWKm_RIwcWqAw/exec";
+
   $(document).ready(function() {
-      // Inisialisasi Select2
       $('#kode_toko').select2({ placeholder: "Cari Kode / Nama Toko", width: '100%' });
 
-      // Event ketika file dipilih (Validasi Max File & Kompresi Otomatis)
       $('input[type="file"]').on('change', async function(event) {
         let fileInput = this;
         let files = fileInput.files;
@@ -850,57 +863,104 @@
         let compressingText = $('#comp_' + $(fileInput).attr('name'));
         let submitBtn = $('#submitBtn');
 
-        // Cek Batas Maksimal File
         if (files.length > maxFiles) {
           warningText.slideDown(200);
-          $(fileInput).val(''); // Reset input
+          $(fileInput).val(''); 
           return;
         } else {
           warningText.slideUp(200);
         }
 
-        // Mulai Proses Kompresi
         if (files.length > 0) {
           compressingText.slideDown(200);
-          submitBtn.prop('disabled', true); // Kunci tombol submit saat kompresi
+          submitBtn.prop('disabled', true); 
+          let dataTransfer = new DataTransfer(); 
           
-          let dataTransfer = new DataTransfer(); // Tempat simpan file yang udah dikompres
-          
-          // Pengaturan Kompresi (Target Max 1 MB, Lebar/Tinggi Max 1920px)
-          const options = {
-            maxSizeMB: 1,
-            maxWidthOrHeight: 1920,
-            useWebWorker: true
-          };
+          const options = { maxSizeMB: 1, maxWidthOrHeight: 1920, useWebWorker: true };
 
           for (let i = 0; i < files.length; i++) {
             let file = files[i];
-            
-            // Hanya kompres jika formatnya gambar (PDF dibiarkan utuh)
             if (file.type.startsWith('image/')) {
               try {
                 let compressedFile = await imageCompression(file, options);
-                // Kembalikan objek jadi File untuk dikirim via form nanti
                 let newFile = new File([compressedFile], file.name, { type: file.type });
                 dataTransfer.items.add(newFile);
-              } catch (error) {
-                console.error('Error saat kompresi:', error);
-                dataTransfer.items.add(file); // Jika gagal kompres, pakai foto asli
-              }
-            } else {
-              dataTransfer.items.add(file); // Jika PDF, langsung masuk
-            }
+              } catch (error) { dataTransfer.items.add(file); }
+            } else { dataTransfer.items.add(file); }
           }
-
-          // Timpa file inputan dengan file hasil kompresi
           fileInput.files = dataTransfer.files;
-          
-          // Selesai Kompresi
           compressingText.slideUp(200);
-          submitBtn.prop('disabled', false); // Buka kunci tombol submit
+          submitBtn.prop('disabled', false); 
+        }
+      });
+
+      // PROSES KIRIM FORM
+      $('#uploadForm').on('submit', async function(e) {
+        e.preventDefault();
+        
+        let submitBtn = $('#submitBtn');
+        submitBtn.html('<i class="fa-solid fa-spinner fa-spin"></i> PROSES UPLOAD KE DRIVE (HARAP TUNGGU)...');
+        submitBtn.prop('disabled', true);
+
+        // Helper untuk mengubah file jadi kode base64
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve({ name: file.name, mimeType: file.type, base64: reader.result.split(',')[1] });
+            reader.onerror = error => reject(error);
+        });
+
+        const getFilesData = async (inputName) => {
+            let files = document.querySelector(`input[name="${inputName}"]`).files;
+            let data = [];
+            for(let i=0; i<files.length; i++) data.push(await toBase64(files[i]));
+            return data;
+        };
+
+        try {
+            // Gabung semua data
+            let payload = {
+                kode_toko: document.querySelector('select[name="kode_toko"]').value,
+                tanggal: document.querySelector('input[name="tanggal"]').value,
+                foto_before: await getFilesData('foto_before'),
+                foto_after: await getFilesData('foto_after'),
+                dokumen_lhso: await getFilesData('dokumen_lhso'),
+                dokumen_baso: await getFilesData('dokumen_baso'),
+                dokumen_brankas: await getFilesData('dokumen_brankas')
+            };
+
+            let formData = new URLSearchParams();
+            formData.append("data", JSON.stringify(payload));
+
+            // Tembak ke Apps Script
+            let response = await fetch(SCRIPT_URL, { method: 'POST', body: formData });
+            let result = await response.json();
+
+            if(result.status === 'success') {
+                document.getElementById('uploadForm').style.display = "none";
+                document.getElementById('btnHomeUtama').style.display = "none";
+                document.getElementById('successContainer').style.display = "block";
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                alert("Upload Gagal: " + result.message);
+            }
+        } catch (error) {
+            alert("Koneksi bermasalah. Pastikan internet stabil dan coba lagi.");
+        } finally {
+            submitBtn.html('<i class="fa-solid fa-cloud-arrow-up" style="margin-right: 8px;"></i> UPLOAD SEMUA DOKUMEN');
+            submitBtn.prop('disabled', false);
         }
       });
   });
+
+  function resetForm() {
+    document.getElementById('uploadForm').reset();
+    $('#kode_toko').val(null).trigger('change');
+    document.getElementById('successContainer').style.display = "none";
+    document.getElementById('uploadForm').style.display = "block";
+    document.getElementById('btnHomeUtama').style.display = "flex";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 </script>
 
 </body>
