@@ -944,9 +944,10 @@
             } else {
                 alert("Upload Gagal: " + result.message);
             }
-        } catch (error) {
-            alert("Koneksi bermasalah. Pastikan internet stabil dan coba lagi.");
-        } finally {
+            } catch (error) {
+            console.error(error);
+            alert("Upload Gagal Error: " + error.message);
+            } finally {
             submitBtn.html('<i class="fa-solid fa-cloud-arrow-up" style="margin-right: 8px;"></i> UPLOAD SEMUA DOKUMEN');
             submitBtn.prop('disabled', false);
         }
