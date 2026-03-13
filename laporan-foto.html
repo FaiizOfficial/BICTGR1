@@ -8,8 +8,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
   
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
   <style>
-    /* VARIABEL WARNA (Seragam dengan Laporan SO Harian) */
+    /* VARIABEL WARNA */
     :root {
       --primary-blue: #005b9f;
       --secondary-blue: #00457c;
@@ -74,10 +78,26 @@
     }
 
     /* INPUT STYLING */
-    .input-group { margin-bottom: 20px; }
-    label { font-weight: 600; font-size: 13px; margin-bottom: 8px; display: block; color: var(--text-main); }
+    .input-group { margin-bottom: 20px; position: relative; }
     
-    input[type="text"], input[type="date"], select {
+    label { 
+      font-weight: 600; font-size: 13px; margin-bottom: 8px; 
+      display: flex; justify-content: space-between; align-items: center; 
+      color: var(--text-main); 
+    }
+    
+    /* Badge Maksimal Foto */
+    .badge-max {
+      background-color: #e3f2fd;
+      color: var(--primary-blue);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid #bbdefb;
+    }
+
+    input[type="date"], select {
       width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--border-color);
       box-sizing: border-box; transition: all 0.3s; font-size: 14px; font-family: 'Poppins', sans-serif;
       background-color: #f8f9fa;
@@ -88,39 +108,25 @@
 
     /* CUSTOM FILE INPUT STYLING */
     input[type="file"] {
-      width: 100%;
-      padding: 10px;
-      background: #f8f9fa;
-      border: 2px dashed var(--border-color);
-      border-radius: 12px;
-      cursor: pointer;
-      font-family: 'Poppins', sans-serif;
-      font-size: 13px;
-      color: var(--text-muted);
-      transition: all 0.3s;
+      width: 100%; padding: 10px; background: #f8f9fa; border: 2px dashed var(--border-color);
+      border-radius: 12px; cursor: pointer; font-family: 'Poppins', sans-serif; font-size: 13px;
+      color: var(--text-muted); transition: all 0.3s;
     }
-
-    input[type="file"]:hover {
-      border-color: var(--primary-blue);
-      background-color: #f0f8ff;
-    }
-
-    /* Mempercantik tombol "Choose File" bawaan browser */
+    input[type="file"]:hover { border-color: var(--primary-blue); background-color: #f0f8ff; }
     input[type="file"]::file-selector-button {
-      background: var(--primary-blue);
-      color: white;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 8px;
-      margin-right: 15px;
-      cursor: pointer;
-      font-weight: 600;
-      font-family: 'Poppins', sans-serif;
-      transition: 0.3s;
+      background: var(--primary-blue); color: white; padding: 8px 16px; border: none;
+      border-radius: 8px; margin-right: 15px; cursor: pointer; font-weight: 600;
+      font-family: 'Poppins', sans-serif; transition: 0.3s;
     }
+    input[type="file"]::file-selector-button:hover { background: var(--secondary-blue); }
 
-    input[type="file"]::file-selector-button:hover {
-      background: var(--secondary-blue);
+    /* ERROR WARNING TEXT */
+    .file-warning {
+      color: var(--accent-red);
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 6px;
+      display: none; /* Disembunyikan awalnya */
     }
 
     /* TOMBOL SUBMIT */
@@ -140,8 +146,12 @@
     }
     .btn-home:hover { background: var(--primary-blue); color: #fff; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* Kustomisasi Select2 */
+    .select2-container--default .select2-selection--single { height: 46px; border-radius: 12px; border: 1px solid var(--border-color); background-color: #f8f9fa; }
+    .select2-container--default .select2-selection--single .select2-selection__rendered { line-height: 46px; font-family: 'Poppins', sans-serif; font-size: 14px; padding-left: 15px; }
+    .select2-container--default .select2-selection--single .select2-selection__arrow { height: 44px; }
 
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
@@ -159,7 +169,12 @@
       <h3 class="section-title"><i class="fa-solid fa-store"></i> Data Toko</h3>
       <div class="input-group">
         <label>KODE TOKO</label>
-        <input type="text" name="kode_toko" placeholder="Masukkan Kode Toko..." required>
+        <select name="kode_toko" id="kode_toko" required>
+          <option value=""></option>
+          <option value="TU4R - A Yani Tangerang">TU4R - A Yani Tangerang</option>
+          <option value="T2IO - Wisma Mas">T2IO - Wisma Mas</option>
+          <option value="T72C - World Of Wonder">T72C - World Of Wonder</option>
+        </select>
       </div>
       <div class="input-group">
         <label>TANGGAL SO</label>
@@ -169,33 +184,43 @@
 
     <div class="form-section">
       <h3 class="section-title"><i class="fa-solid fa-camera-retro"></i> Foto Display</h3>
+      
       <div class="input-group">
-        <label>UPLOAD FOTO BEFORE SO</label>
-        <input type="file" name="foto_before" accept="image/*" required>
+        <label>UPLOAD FOTO BEFORE SO <span class="badge-max">Max 6 Foto</span></label>
+        <input type="file" name="foto_before" accept="image/*" multiple data-max="6" required>
+        <div class="file-warning" id="warn_foto_before"><i class="fa-solid fa-circle-exclamation"></i> Foto sudah maksimal (Max 6)!</div>
       </div>
+      
       <div class="input-group">
-        <label>UPLOAD FOTO AFTER SO</label>
-        <input type="file" name="foto_after" accept="image/*" required>
+        <label>UPLOAD FOTO AFTER SO <span class="badge-max">Max 6 Foto</span></label>
+        <input type="file" name="foto_after" accept="image/*" multiple data-max="6" required>
+        <div class="file-warning" id="warn_foto_after"><i class="fa-solid fa-circle-exclamation"></i> Foto sudah maksimal (Max 6)!</div>
       </div>
     </div>
 
     <div class="form-section">
       <h3 class="section-title"><i class="fa-solid fa-file-invoice"></i> Dokumen SO</h3>
+      
       <div class="input-group">
-        <label>UPLOAD LHSO</label>
-        <input type="file" name="dokumen_lhso" accept="image/*, application/pdf" required>
+        <label>UPLOAD LHSO <span class="badge-max">Max 6 Foto</span></label>
+        <input type="file" name="dokumen_lhso" accept="image/*, application/pdf" multiple data-max="6" required>
+        <div class="file-warning" id="warn_dokumen_lhso"><i class="fa-solid fa-circle-exclamation"></i> Foto sudah maksimal (Max 6)!</div>
       </div>
+      
       <div class="input-group">
-        <label>UPLOAD BASO (HASIL ADJUST)</label>
-        <input type="file" name="dokumen_baso" accept="image/*, application/pdf" required>
+        <label>UPLOAD BASO (HASIL ADJUST) <span class="badge-max">Max 3 Foto</span></label>
+        <input type="file" name="dokumen_baso" accept="image/*, application/pdf" multiple data-max="3" required>
+        <div class="file-warning" id="warn_dokumen_baso"><i class="fa-solid fa-circle-exclamation"></i> Foto sudah maksimal (Max 3)!</div>
       </div>
     </div>
 
     <div class="form-section">
       <h3 class="section-title"><i class="fa-solid fa-vault"></i> Form SO Brankas</h3>
+      
       <div class="input-group">
-        <label>UPLOAD FORM SO BRANKAS</label>
-        <input type="file" name="dokumen_brankas" accept="image/*, application/pdf" required>
+        <label>UPLOAD FORM SO BRANKAS <span class="badge-max">Max 2 Foto</span></label>
+        <input type="file" name="dokumen_brankas" accept="image/*, application/pdf" multiple data-max="2" required>
+        <div class="file-warning" id="warn_dokumen_brankas"><i class="fa-solid fa-circle-exclamation"></i> Foto sudah maksimal (Max 2)!</div>
       </div>
     </div>
 
@@ -210,6 +235,36 @@
   </a>
 
 </div>
+
+<script>
+  $(document).ready(function() {
+      // Inisialisasi Select2
+      $('#kode_toko').select2({
+        placeholder: "Cari Kode / Nama Toko",
+        width: '100%'
+      });
+
+      // Validasi Jumlah File Upload
+      $('input[type="file"]').on('change', function() {
+        // Ambil batas maksimal dari atribut data-max
+        let maxFiles = parseInt($(this).attr('data-max'));
+        // Ambil jumlah file yang dipilih user
+        let fileCount = this.files.length;
+        // Cari elemen warning di bawah input ini
+        let warningText = $('#warn_' + $(this).attr('name'));
+
+        if (fileCount > maxFiles) {
+          // Tampilkan teks peringatan
+          warningText.slideDown(200);
+          // Kosongkan kembali input file-nya agar user harus pilih ulang
+          $(this).val('');
+        } else {
+          // Sembunyikan peringatan jika jumlahnya aman
+          warningText.slideUp(200);
+        }
+      });
+  });
+</script>
 
 </body>
 </html>
