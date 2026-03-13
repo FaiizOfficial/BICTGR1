@@ -4,125 +4,206 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Utama - Inventory Control</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         /* Reset & Style Dasar */
         body {
             margin: 0;
             padding: 0;
-            background-color: #2c3e50; /* Warna background luar jika dibuka di PC */
+            background-color: #e9ecef; /* Warna background luar abu-abu terang */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* Container utama yang menyerupai layar HP */
+        /* Container utama ala HP */
         .app-container {
-            background-color: #3b7a78; /* Warna hijau kebiruan */
+            background-color: #f8f9fa; /* Warna dasar dalam aplikasi (putih tulang) */
             width: 100%;
-            max-width: 400px; /* Lebar maksimal seperti HP */
+            max-width: 420px;
             height: 100vh; 
-            max-height: 800px;
+            max-height: 850px;
             display: flex;
             flex-direction: column;
             align-items: center;
             box-sizing: border-box;
-            border: 8px solid #1a1a1a; /* Frame HP bohong-bohongan untuk tampilan PC */
-            border-radius: 20px;
+            border: 8px solid #333; /* Frame HP */
+            border-radius: 30px;
             overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            position: relative;
         }
 
-        /* Menyesuaikan tampilan jika dibuka full di HP beneran */
+        /* Responsive untuk HP beneran */
         @media (max-width: 480px) {
             .app-container {
                 border: none;
                 border-radius: 0;
                 height: 100vh;
                 max-height: none;
+                box-shadow: none;
             }
-            body { background-color: #3b7a78; }
+            body { background-color: #f8f9fa; }
         }
 
-        /* Style untuk Header Hexagon Merah */
-        .header-shape {
-            background-color: #e51d20; 
-            width: 85%;
-            padding: 30px 10px;
-            margin-top: 50px;
-            margin-bottom: 50px;
+        /* Header Melengkung Khas Biru Indomaret */
+        .app-header {
+            background: linear-gradient(135deg, #005b9f, #003e6d);
+            width: 100%;
+            padding: 40px 20px 50px 20px;
             text-align: center;
-            /* Membuat bentuk segi enam (hexagon) memanjang kiri-kanan */
-            clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 5px 15px rgba(0, 91, 159, 0.4);
+            box-sizing: border-box;
         }
 
-        .header-shape h1 {
+        /* Logo Indomaret */
+        .logo-img {
+            max-width: 150px;
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .app-header h1 {
             color: white;
             margin: 0;
-            font-size: 20px;
-            font-family: "Times New Roman", Times, serif;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Efek bayangan teks */
-            line-height: 1.4;
-            letter-spacing: 1px;
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1.3;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
-        /* Container untuk Tombol-tombol */
-        .button-container {
-            width: 80%;
+        .app-header p {
+            color: #ffd600; /* Aksen kuning */
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Container Konten Utama */
+        .content-area {
+            width: 85%;
+            margin-top: 30px;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 15px;
         }
 
-        /* Style dasar tombol */
-        .btn {
-            display: block;
-            text-decoration: none;
-            color: black;
-            font-weight: 900;
+        /* Teks Instruksi */
+        .instruction-text {
             text-align: center;
-            padding: 18px 10px;
-            font-size: 16px;
+            color: #6c757d;
+            font-size: 14px;
+            font-weight: 600;
+            font-style: italic;
+            margin: 0 0 5px 0;
+        }
+
+        /* Style dasar tombol Card */
+        .btn-card {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #eaeaea;
+        }
+
+        .btn-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .btn-card:active {
+            transform: scale(0.97);
+        }
+
+        /* Ikon di dalam tombol */
+        .btn-icon {
+            font-size: 30px;
+            margin-right: 20px;
+            width: 40px;
+            text-align: center;
+        }
+
+        /* Teks di dalam tombol */
+        .btn-text {
+            color: #2b2b2b;
+            font-weight: 700;
+            font-size: 15px;
             line-height: 1.4;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: transform 0.1s;
+            text-align: left;
         }
 
-        .btn:active {
-            transform: scale(0.95); /* Efek mengecil saat diklik */
+        /* Variasi Tombol 1: Biru (Untuk SO & Kas) */
+        .btn-blue .btn-icon { color: #005b9f; }
+        .btn-blue::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background-color: #005b9f;
         }
 
-        /* Tombol 1: Laporan SO Harian */
-        .btn-blue {
-            background-color: #aed6f1; /* Biru muda */
-            border-radius: 40px; /* Bentuk kapsul */
+        /* Variasi Tombol 2: Kuning/Merah (Untuk Before After dll) */
+        .btn-yellow .btn-icon { color: #e51d20; }
+        .btn-yellow::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background-color: #ffd600;
         }
 
-        /* Tombol 2: Laporan Before After */
-        .btn-yellow {
-            background-color: #f1c40f; /* Kuning */
-            border-radius: 15px; /* Kotak rounded */
-        }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <div class="header-shape">
-            <h1>INVENTORY CONTROL<br>TANGERANG 1</h1>
-        </div>
+        <header class="app-header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Logo_Indomaret.png" alt="Logo Indomaret" class="logo-img">
+            <h1>INVENTORY CONTROL</h1>
+            <p>TANGERANG 1</p>
+        </header>
 
-        <div class="button-container">
-            <a href="laporan-so.html" class="btn btn-blue">
-                LAPORAN<br>SO & KAS HARIAN
+        <div class="content-area">
+            
+            <p class="instruction-text">( Klik untuk laporan )</p>
+
+            <a href="laporan-so.html" class="btn-card btn-blue">
+                <i class="fa-solid fa-clipboard-check btn-icon"></i>
+                <div class="btn-text">
+                    LAPORAN<br>SO & KAS HARIAN
+                </div>
             </a>
 
-            <a href="#" class="btn btn-yellow">
-                LAPORAN<br>BEFORE - AFTER<br>BASO & LHSO<br>SO BRANKAS
+            <a href="#" class="btn-card btn-yellow">
+                <i class="fa-solid fa-boxes-stacked btn-icon"></i>
+                <div class="btn-text">
+                    LAPORAN BEFORE - AFTER<br>BASO & LHSO<br>SO BRANKAS
+                </div>
             </a>
+            
         </div>
     </div>
 
