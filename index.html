@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Utama - Inventory Control</title>
+    <style>
+        /* Reset & Style Dasar */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2c3e50; /* Warna background luar jika dibuka di PC */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container utama yang menyerupai layar HP */
+        .app-container {
+            background-color: #3b7a78; /* Warna hijau kebiruan */
+            width: 100%;
+            max-width: 400px; /* Lebar maksimal seperti HP */
+            height: 100vh; 
+            max-height: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            border: 8px solid #1a1a1a; /* Frame HP bohong-bohongan untuk tampilan PC */
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        /* Menyesuaikan tampilan jika dibuka full di HP beneran */
+        @media (max-width: 480px) {
+            .app-container {
+                border: none;
+                border-radius: 0;
+                height: 100vh;
+                max-height: none;
+            }
+            body { background-color: #3b7a78; }
+        }
+
+        /* Style untuk Header Hexagon Merah */
+        .header-shape {
+            background-color: #e51d20; 
+            width: 85%;
+            padding: 30px 10px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            text-align: center;
+            /* Membuat bentuk segi enam (hexagon) memanjang kiri-kanan */
+            clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-shape h1 {
+            color: white;
+            margin: 0;
+            font-size: 20px;
+            font-family: "Times New Roman", Times, serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Efek bayangan teks */
+            line-height: 1.4;
+            letter-spacing: 1px;
+        }
+
+        /* Container untuk Tombol-tombol */
+        .button-container {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* Style dasar tombol */
+        .btn {
+            display: block;
+            text-decoration: none;
+            color: black;
+            font-weight: 900;
+            text-align: center;
+            padding: 18px 10px;
+            font-size: 16px;
+            line-height: 1.4;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.1s;
+        }
+
+        .btn:active {
+            transform: scale(0.95); /* Efek mengecil saat diklik */
+        }
+
+        /* Tombol 1: Laporan SO Harian */
+        .btn-blue {
+            background-color: #aed6f1; /* Biru muda */
+            border-radius: 40px; /* Bentuk kapsul */
+        }
+
+        /* Tombol 2: Laporan Before After */
+        .btn-yellow {
+            background-color: #f1c40f; /* Kuning */
+            border-radius: 15px; /* Kotak rounded */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header-shape">
+            <h1>INVENTORY CONTROL<br>TANGERANG 1</h1>
+        </div>
+
+        <div class="button-container">
+            <a href="laporan-so.html" class="btn btn-blue">
+                LAPORAN<br>SO & KAS HARIAN
+            </a>
+
+            <a href="#" class="btn btn-yellow">
+                LAPORAN<br>BEFORE - AFTER<br>BASO & LHSO<br>SO BRANKAS
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
