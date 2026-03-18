@@ -175,7 +175,7 @@
             background-color: #ffd600;
         }
 
-        /* Variasi Tombol 3: Hijau (Untuk Tautan Google Sheets) */
+        /* Variasi Tombol 3: Hijau (Untuk Tautan Google Sheets SO) */
         .btn-green .btn-icon { color: #0f9d58; }
         .btn-green::before {
             content: '';
@@ -185,6 +185,18 @@
             bottom: 0;
             width: 6px;
             background-color: #0f9d58;
+        }
+
+        /* Variasi Tombol 4: Oranye (Untuk Tautan Google Sheets B/A) */
+        .btn-orange .btn-icon { color: #f39c12; }
+        .btn-orange::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background-color: #f39c12;
         }
 
     </style>
@@ -220,6 +232,13 @@
                 <i class="fa-solid fa-file-excel btn-icon"></i>
                 <div class="btn-text">
                     CEK LAPORAN SO
+                </div>
+            </a>
+
+            <a href="https://docs.google.com/spreadsheets/d/1YDn5DhDLdRDHDvWhqrLtwN5nB3fswonvFV59c874uI0/edit?usp=sharing" target="_blank" class="btn-card btn-orange">
+                <i class="fa-solid fa-images btn-icon"></i>
+                <div class="btn-text">
+                    CEK LAPORAN BEFORE - AFTER
                 </div>
             </a>
             
