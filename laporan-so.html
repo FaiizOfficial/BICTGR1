@@ -930,6 +930,7 @@
         <label>KOORDINATOR</label>
         <select name="koordinator" required>
           <option value="">-- Pilih Koordinator --</option>
+          <option>EXTRA</option>
           <option>HERU PRIYANTO</option>
           <option>VIKHI NOVIAN SHIA</option>
           <option>SAEFUL BAHRI</option>
@@ -944,13 +945,32 @@
           <option>ANDRIAN ADITYA</option>
           <option>ADI SURYADI</option>
           <option>M NASRUL NAPIUDIN</option>
-          <option>EXTRA</option>
         </select>
       </div>
     </div>
 
     <div class="form-section">
       <h3 class="section-title"><i class="fa-solid fa-network-wired"></i> Kondisi Area & Jaringan</h3>
+      
+      <div class="input-group">
+        <label>JUMLAH LANTAI TOKO</label>
+        <select name="jumlah_lantai" required>
+          <option value="">-- Pilih Jumlah Lantai --</option>
+          <option>1 Lantai</option>
+          <option>2 Lantai</option>
+          <option>3 Lantai</option>
+        </select>
+      </div>
+      
+      <div class="input-group">
+        <label>JUMLAH ROUTER</label>
+        <select name="jumlah_router" required>
+          <option value="">-- Pilih Jumlah Router --</option>
+          <option>1 Router</option>
+          <option>2 Router</option>
+        </select>
+      </div>
+
       <div class="input-group">
         <label>KONDISI DISPLAY</label>
         <div class="option-box">
@@ -973,12 +993,12 @@
         <label>KONDISI ROUTER</label>
         <select name="kondisi_router" required>
           <option value="">-- Pilih Kondisi --</option>
-          <option>Tidak ada Kendala</option>
+          <option>Koneksi tidak ada Kendala</option>
           <option>Koneksi Lemot</option>
           <option>Koneksi gudang lemot</option>
           <option>Komputer lemot</option>
           <option>Koneksi tidak sampai gudang</option>
-          <option>Router rusak/tidak ada</option>
+          <option>Router rusak</option>
           <option>Kabel Hub rusak</option>
         </select>
       </div>
@@ -1042,6 +1062,104 @@
       </div>
     </div>
 
+    <div class="form-section">
+      <h3 class="section-title"><i class="fa-solid fa-lock"></i> Checklist Gembok</h3>
+      
+      <div class="input-group">
+        <label>CCTV TERPANTAU DENGAN JELAS?</label>
+        <div class="option-box">
+          <input type="radio" id="cctv_jelas_ya" name="cctv_jelas" value="Ya" required>
+          <label for="cctv_jelas_ya" class="option">Ya</label>
+          <input type="radio" id="cctv_jelas_tidak" name="cctv_jelas" value="Tidak" required>
+          <label for="cctv_jelas_tidak" class="option">Tidak</label>
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label>CCTV TERTUTUP TUMPUKAN BARANG?</label>
+        <div class="option-box">
+          <input type="radio" id="cctv_tertutup_ya" name="cctv_tertutup" value="Ya" required>
+          <label for="cctv_tertutup_ya" class="option">Ya</label>
+          <input type="radio" id="cctv_tertutup_tidak" name="cctv_tertutup" value="Tidak" required>
+          <label for="cctv_tertutup_tidak" class="option">Tidak</label>
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label>CCTV BELUM SESUAI KETENTUAN?</label>
+        <div class="option-box">
+          <input type="radio" id="cctv_sesuai_ya" name="cctv_sesuai" value="Ya" required>
+          <label for="cctv_sesuai_ya" class="option">Ya</label>
+          <input type="radio" id="cctv_sesuai_tidak" name="cctv_sesuai" value="Tidak" required>
+          <label for="cctv_sesuai_tidak" class="option">Tidak</label>
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label>KETERANGAN CCTV</label>
+        <textarea name="keterangan_cctv" placeholder="Isi jika ada keterangan tambahan tentang CCTV..."></textarea>
+      </div>
+
+      <div class="input-group">
+        <label>KUNCI KOMBINASI BRANKAS DIACAK?</label>
+        <div class="option-box">
+          <input type="radio" id="kunci_diacak_ya" name="kunci_diacak" value="Ya" required>
+          <label for="kunci_diacak_ya" class="option">Ya</label>
+          <input type="radio" id="kunci_diacak_tidak" name="kunci_diacak" value="Tidak" required>
+          <label for="kunci_diacak_tidak" class="option">Tidak</label>
+        </div>
+      </div>
+
+      <div style="background-color: #f8f9fa; padding: 15px; border-radius: 12px; margin-bottom: 18px; border: 1px dashed var(--border-color);">
+        <label style="color: var(--primary-blue); border-bottom: 1px solid var(--border-color); padding-bottom: 5px; margin-bottom: 10px;">JIKA KUNCI KOMBINASI TIDAK DIACAK:</label>
+        
+        <div class="input-group">
+          <label>TOKO 24 JAM?</label>
+          <div class="option-box">
+            <input type="radio" id="toko_24_ya" name="toko_24_jam" value="Ya">
+            <label for="toko_24_ya" class="option">Ya</label>
+            <input type="radio" id="toko_24_tidak" name="toko_24_jam" value="Tidak">
+            <label for="toko_24_tidak" class="option">Tidak</label>
+          </div>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 0;">
+          <label>SUDAH TERBIASA?</label>
+          <div class="option-box">
+            <input type="radio" id="terbiasa_ya" name="sudah_terbiasa" value="Ya">
+            <label for="terbiasa_ya" class="option">Ya</label>
+            <input type="radio" id="terbiasa_tidak" name="sudah_terbiasa" value="Tidak">
+            <label for="terbiasa_tidak" class="option">Tidak</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>CATATAN HILANG?</label>
+        <div class="option-box">
+          <input type="radio" id="catatan_hilang_ya" name="catatan_hilang" value="Ya" required>
+          <label for="catatan_hilang_ya" class="option">Ya</label>
+          <input type="radio" id="catatan_hilang_tidak" name="catatan_hilang" value="Tidak" required>
+          <label for="catatan_hilang_tidak" class="option">Tidak</label>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>KUNCI KOMBINASI RUSAK?</label>
+        <div class="option-box">
+          <input type="radio" id="kunci_rusak_ya" name="kunci_rusak" value="Ya" required>
+          <label for="kunci_rusak_ya" class="option">Ya</label>
+          <input type="radio" id="kunci_rusak_tidak" name="kunci_rusak" value="Tidak" required>
+          <label for="kunci_rusak_tidak" class="option">Tidak</label>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>KETERANGAN GEMBOK / BRANKAS</label>
+        <textarea name="keterangan_gembok" placeholder="Isi keterangan brankas / kunci kombinasi..."></textarea>
+      </div>
+    </div>
+
     <button type="submit">
       <i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> KIRIM LAPORAN SO
     </button>
@@ -1056,6 +1174,7 @@
 </div>
 
 <script>
+  // PASTIKAN NANTI LU UPDATE GOOGLE SPREADSHEET LU JUGA UNTUK MENAMPUNG KOLOM BARU INI YA!
   const scriptURL = "https://script.google.com/macros/s/AKfycbyEQ0yzvK_CnzHaWFHSjh3w94Z1pg2lu_h-3_pZ2FTmmw3q914O6nwIUIu9vidcyimjmg/exec";
   const form = document.getElementById("soForm");
   const successContainer = document.getElementById("successContainer");
@@ -1179,4 +1298,3 @@ nlInput.addEventListener("input", hitungNKLSO);
 </script>
 </body>
 </html>
-
