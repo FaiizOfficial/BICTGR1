@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitoring SO Harian</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Menggunakan tema warna yang sama dengan form lu */
+    :root {
+      --primary-blue: #005b9f;
+      --secondary-blue: #00457c;
+      --accent-yellow: #ffd600;
+      --bg-color: #f0f2f5;
+      --card-bg: #ffffff;
+      --text-main: #2b2b2b;
+      --border-color: #dee2e6;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 20px;
+      color: var(--text-main);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .header-card {
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      color: white;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .header-title h1 { margin: 0; font-size: 20px; }
+    .header-title p { margin: 0; color: var(--accent-yellow); font-size: 13px; }
+
+    /* Filter Menu */
+    .filter-menu {
+      background: rgba(255,255,255,0.1);
+      padding: 10px 15px;
+      border-radius: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .filter-menu select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #f8f9fa;
+      color: var(--primary-blue);
+      font-weight: 600;
+    }
+
+    tr:hover { background-color: #f1f5f9; }
+
+    .status-badge {
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .loading { text-align: center; padding: 20px; color: var(--primary-blue); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header-card">
+    <div class="header-title" style="text-align: left;">
+      <h1><i class="fa-solid fa-desktop"></i> Dashboard Monitoring SO</h1>
+      <p>Cek Laporan Masuk Otomatis</p>
+    </div>
+    
+    <div class="filter-menu">
+      <label style="color:white; font-size: 14px;">Bulan:</label>
+      <select id="bulanFilter" onchange="terapkanFilter()">
+        <option value="1">Januari</option>
+        <option value="2">Februari</option>
+        <option value="3">Maret</option>
+        <option value="4">April</option>
+        <option value="5">Mei</option>
+        <option value="6">Juni</option>
+        <option value="7">Juli</option>
+        <option value="8">Agustus</option>
+        <option value="9">September</option>
+        <option value="10">Oktober</option>
+        <option value="11">November</option>
+        <option value="12">Desember</option>
+      </select>
+      <select id="tahunFilter" onchange="terapkanFilter()">
+        </select>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="loading" class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Mengambil data dari Spreadsheet...</div>
+    <table id="tabelData" style="display: none;">
+      <thead>
+        <tr>
+          <th>Tanggal SO</th>
+          <th>Kode Toko</th>
+          <th>Officer</th>
+          <th>Koordinator</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="isiTabel">
+        </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  // PENTING: Gunakan script URL yang sama dengan form lu
+  const scriptURL = "https://script.google.com/macros/s/AKfycbyEQ0yzvK_CnzHaWFHSjh3w94Z1pg2lu_h-3_pZ2FTmmw3q914O6nwIUIu9vidcyimjmg/exec";
+  
+  let dataGlobal = [];
+  let headerGlobal = [];
+
+  // Setup awal saat web dibuka
+  window.onload = function() {
+    setupFilterWaktu();
+    fetchData();
+  };
+
+  function setupFilterWaktu() {
+    const sekarang = new Date();
+    // Set default ke bulan dan tahun saat ini
+    document.getElementById("bulanFilter").value = sekarang.getMonth() + 1; 
+    
+    const thnSelect = document.getElementById("tahunFilter");
+    const thnSekarang = sekarang.getFullYear();
+    for(let i = thnSekarang - 1; i <= thnSekarang + 1; i++){
+      let opt = document.createElement("option");
+      opt.value = i; opt.text = i;
+      if(i === thnSekarang) opt.selected = true;
+      thnSelect.appendChild(opt);
+    }
+  }
+
+  function fetchData() {
+    fetch(scriptURL)
+      .then(response => response.json())
+      .then(data => {
+        headerGlobal = data[0]; // Baris pertama adalah header
+        dataGlobal = data.slice(1); // Sisanya adalah isi data
+        
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("tabelData").style.display = "table";
+        terapkanFilter(); // Render data sesuai bulan ini
+      })
+      .catch(error => {
+        document.getElementById("loading").innerHTML = "Gagal memuat data. Pastikan Script sudah di-deploy ulang (New Deployment).";
+      });
+  }
+
+  function terapkanFilter() {
+    const blnPilih = parseInt(document.getElementById("bulanFilter").value);
+    const thnPilih = parseInt(document.getElementById("tahunFilter").value);
+    
+    // Mencari otomatis letak kolom (Index) berdasarkan nama di header Spreadsheet lu
+    const idxTanggal = headerGlobal.findIndex(h => h.toLowerCase().includes("tanggal"));
+    const idxToko = headerGlobal.findIndex(h => h.toLowerCase().includes("toko"));
+    const idxOfficer = headerGlobal.findIndex(h => h.toLowerCase().includes("officer"));
+    const idxKoord = headerGlobal.findIndex(h => h.toLowerCase().includes("koordinator"));
+
+    // Filter data berdasarkan bulan & tahun terpilih
+    let dataTerfilter = dataGlobal.filter(row => {
+      let tglRow = new Date(row[idxTanggal]);
+      // Cek apakah tanggal valid dan sesuai filter
+      if (isNaN(tglRow)) return false; 
+      return (tglRow.getMonth() + 1 === blnPilih) && (tglRow.getFullYear() === thnPilih);
+    });
+
+    // Urutkan data: Tanggal Paling Tua di ATAS (Ascending)
+    dataTerfilter.sort((a, b) => new Date(a[idxTanggal]) - new Date(b[idxTanggal]));
+
+    renderTabel(dataTerfilter, idxTanggal, idxToko, idxOfficer, idxKoord);
+  }
+
+  function renderTabel(data, idxTanggal, idxToko, idxOfficer, idxKoord) {
+    const tbody = document.getElementById("isiTabel");
+    tbody.innerHTML = "";
+
+    if(data.length === 0) {
+      tbody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>Belum ada laporan di bulan ini.</td></tr>";
+      return;
+    }
+
+    data.forEach(row => {
+      // Format tanggal agar rapi (DD/MM/YYYY)
+      let tglAsli = new Date(row[idxTanggal]);
+      let tglRapi = tglAsli.toLocaleDateString('id-ID', {day: '2-digit', month: 'short', year: 'numeric'});
+
+      let tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td style="font-weight:600;">${tglRapi}</td>
+        <td>${row[idxToko] || '-'}</td>
+        <td>${row[idxOfficer] || '-'}</td>
+        <td>${row[idxKoord] || '-'}</td>
+        <td><span class="status-badge"><i class="fa-solid fa-check"></i> Masuk</span></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+</script>
+</body>
+</html>
