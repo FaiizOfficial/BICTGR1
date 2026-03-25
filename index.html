@@ -6,15 +6,14 @@
     <title>Menu Utama - Inventory Control</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* Reset & Style Dasar */
         body {
             margin: 0;
-            padding: 0;
-            background-color: #e9ecef; /* Warna background luar abu-abu terang */
+            padding: 20px 0; /* Tambah padding atas bawah biar lega kalau di desktop */
+            background-color: #e9ecef; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,20 +23,21 @@
 
         /* Container utama ala HP */
         .app-container {
-            background-color: #f8f9fa; /* Warna dasar dalam aplikasi (putih tulang) */
+            background-color: #f8f9fa; 
             width: 100%;
             max-width: 420px;
-            height: 100vh; 
-            max-height: 850px;
+            height: auto; /* Diubah jadi auto biar menyesuaikan isi */
+            min-height: 850px;
             display: flex;
             flex-direction: column;
             align-items: center;
             box-sizing: border-box;
-            border: 8px solid #333; /* Frame HP */
+            border: 8px solid #333; 
             border-radius: 30px;
             overflow: hidden;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             position: relative;
+            padding-bottom: 30px; /* Jarak bawah */
         }
 
         /* Responsive untuk HP beneran */
@@ -45,11 +45,11 @@
             .app-container {
                 border: none;
                 border-radius: 0;
-                height: 100vh;
-                max-height: none;
+                min-height: 100vh;
                 box-shadow: none;
+                padding-bottom: 50px;
             }
-            body { background-color: #f8f9fa; }
+            body { background-color: #f8f9fa; padding: 0; }
         }
 
         /* Header Melengkung Khas Biru Indomaret */
@@ -85,7 +85,7 @@
         }
 
         .app-header p {
-            color: #ffd600; /* Aksen kuning */
+            color: #ffd600; 
             margin: 5px 0 0 0;
             font-size: 14px;
             font-weight: 600;
@@ -153,50 +153,36 @@
 
         /* Variasi Tombol 1: Biru (Untuk SO & Kas) */
         .btn-blue .btn-icon { color: #005b9f; }
-        .btn-blue::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 6px;
-            background-color: #005b9f;
-        }
+        .btn-blue::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #005b9f; }
 
         /* Variasi Tombol 2: Kuning/Merah (Untuk Before After dll) */
         .btn-yellow .btn-icon { color: #e51d20; }
-        .btn-yellow::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 6px;
-            background-color: #ffd600;
-        }
+        .btn-yellow::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #ffd600; }
 
         /* Variasi Tombol 3: Hijau (Untuk Tautan Google Sheets SO) */
         .btn-green .btn-icon { color: #0f9d58; }
-        .btn-green::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 6px;
-            background-color: #0f9d58;
-        }
+        .btn-green::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #0f9d58; }
 
         /* Variasi Tombol 4: Oranye (Untuk Tautan Google Sheets B/A) */
         .btn-orange .btn-icon { color: #f39c12; }
-        .btn-orange::before {
-            content: '';
+        .btn-orange::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #f39c12; }
+
+        /* Variasi Tombol 5: Teal (BARU - Untuk Dashboard Monitoring) */
+        .btn-teal .btn-icon { color: #17a2b8; }
+        .btn-teal::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #17a2b8; }
+
+        /* Label Badge Baru di Tombol */
+        .badge-new {
+            background-color: #e51d20;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 6px;
-            background-color: #f39c12;
+            top: 15px;
+            right: 15px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
         }
 
     </style>
@@ -212,7 +198,16 @@
 
         <div class="content-area">
             
-            <p class="instruction-text">( Klik untuk laporan )</p>
+            <p class="instruction-text">( Klik menu di bawah )</p>
+
+            <a href="monitoring.html" class="btn-card btn-teal">
+                <span class="badge-new">NEW</span>
+                <i class="fa-solid fa-desktop btn-icon"></i>
+                <div class="btn-text">
+                    DASHBOARD MONITORING<br>
+                    <span style="font-size: 12px; color: #6c757d; font-weight: 500;">Pantau Laporan Masuk</span>
+                </div>
+            </a>
 
             <a href="laporan-so.html" class="btn-card btn-blue">
                 <i class="fa-solid fa-clipboard-check btn-icon"></i>
@@ -231,14 +226,14 @@
             <a href="https://docs.google.com/spreadsheets/d/1--15lTnPMyNCLs7S2svKHWqvjzzfl5FavUs5lLoi88w/edit?usp=drivesdk" target="_blank" class="btn-card btn-green">
                 <i class="fa-solid fa-file-excel btn-icon"></i>
                 <div class="btn-text">
-                    CEK LAPORAN SO
+                    CEK SPREADSHEET SO
                 </div>
             </a>
 
             <a href="https://docs.google.com/spreadsheets/d/1YDn5DhDLdRDHDvWhqrLtwN5nB3fswonvFV59c874uI0/edit?usp=sharing" target="_blank" class="btn-card btn-orange">
                 <i class="fa-solid fa-images btn-icon"></i>
                 <div class="btn-text">
-                    CEK LAPORAN BEFORE - AFTER
+                    CEK SPREADSHEET B/A
                 </div>
             </a>
             
