@@ -220,8 +220,8 @@
       return (tglRow.getMonth() + 1 === blnPilih) && (tglRow.getFullYear() === thnPilih);
     });
 
-    // Urutkan data: Tanggal Paling Tua di ATAS (Ascending)
-    dataTerfilter.sort((a, b) => new Date(a[idxTanggal]) - new Date(b[idxTanggal]));
+    // Urutkan data: Tanggal Paling Baru di ATAS (Descending)
+    dataTerfilter.sort((a, b) => new Date(b[idxTanggal]) - new Date(a[idxTanggal]));
 
     renderTabel(dataTerfilter, idxTanggal, idxToko, idxOfficer, idxKoord);
   }
