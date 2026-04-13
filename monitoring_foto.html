@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monitoring Foto Before-After & Brankas</title>
+  <title>Monitoring Foto & Dokumen SO (Merged)</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
@@ -28,11 +28,10 @@
     }
 
     .container {
-      max-width: 1000px; /* Diperlebar sedikit karena kolom foto memakan tempat */
+      max-width: 1200px; 
       margin: auto;
     }
 
-    /* TOMBOL KEMBALI KE HOME */
     .back-btn {
       display: inline-flex;
       align-items: center;
@@ -52,7 +51,7 @@
     .back-btn:hover { background: var(--bg-color); transform: translateX(-3px); }
 
     .header-card {
-      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      background: linear-gradient(135deg, #6f42c1, #4e2a84); 
       padding: 20px;
       border-radius: 15px;
       text-align: center;
@@ -63,12 +62,12 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 15px;
+      box-shadow: 0 5px 15px rgba(111, 66, 193, 0.3);
     }
 
     .header-title h1 { margin: 0; font-size: 20px; }
     .header-title p { margin: 0; color: var(--accent-yellow); font-size: 13px; }
 
-    /* Filter Menu */
     .filter-menu {
       background: rgba(255,255,255,0.1);
       padding: 10px 15px;
@@ -100,13 +99,14 @@
       border-collapse: collapse;
       margin-top: 10px;
       table-layout: auto;
+      min-width: 1000px; /* Lebar minimum biar ga dempet karena kolomnya banyak */
     }
 
     th, td {
       padding: 12px 15px;
       text-align: left;
       border-bottom: 1px solid var(--border-color);
-      font-size: 14px;
+      font-size: 13px;
       vertical-align: middle;
     }
 
@@ -118,53 +118,71 @@
 
     tr:hover { background-color: #f1f5f9; }
 
-    /* STYLE UNTUK TOMBOL FOTO */
+    /* TOMBOL LINK (Support Multi-Link) */
+    .link-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
     .btn-photo {
       background: #e3f2fd;
       color: var(--primary-blue);
-      padding: 6px 12px;
+      padding: 5px 10px;
       border-radius: 6px;
       text-decoration: none;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       transition: 0.2s;
       border: 1px solid #90caf9;
+      white-space: nowrap;
     }
     .btn-photo:hover {
       background: var(--primary-blue);
       color: white;
     }
     
+    .btn-doc {
+      background: #e8f5e9;
+      color: #2e7d32;
+      border: 1px solid #a5d6a7;
+    }
+    .btn-doc:hover {
+      background: #2e7d32;
+      color: white;
+    }
+
     .badge-kosong {
       background: #ffebee;
       color: #c62828;
-      padding: 5px 10px;
+      padding: 4px 8px;
       border-radius: 6px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       display: inline-block;
       border: 1px solid #ffcdd2;
     }
 
     .loading { text-align: center; padding: 20px; color: var(--primary-blue); font-weight: 600; }
+    
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #1976d2;
+      padding: 10px 15px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      font-size: 12px;
+      color: #0d47a1;
+    }
 
     @media (max-width: 768px) {
       body { padding: 10px; }
       .header-card { flex-direction: column; align-items: flex-start; }
       .filter-menu { width: 100%; justify-content: space-between; box-sizing: border-box; }
       .card { padding: 10px; }
-      th, td { 
-        padding: 8px 5px; 
-        font-size: 11px; 
-        line-height: 1.4;
-      }
-      .btn-photo, .badge-kosong {
-        padding: 4px 6px;
-        font-size: 10px;
-      }
     }
   </style>
 </head>
@@ -178,64 +196,77 @@
 
   <div class="header-card">
     <div class="header-title" style="text-align: left;">
-      <h1><i class="fa-solid fa-camera-retro"></i> Dashboard Laporan Foto</h1>
-      <p>Monitoring Foto Before-After & Brankas Toko</p>
+      <h1><i class="fa-solid fa-camera-retro"></i> Dashboard Ceklist Foto & Dokumen</h1>
+      <p>Data SO Harian vs Laporan Masuk</p>
     </div>
     
     <div class="filter-menu">
       <label style="color:white; font-size: 14px;">Bulan:</label>
       <select id="bulanFilter" onchange="terapkanFilter()">
-        <option value="1">Januari</option>
-        <option value="2">Februari</option>
-        <option value="3">Maret</option>
-        <option value="4">April</option>
-        <option value="5">Mei</option>
-        <option value="6">Juni</option>
-        <option value="7">Juli</option>
-        <option value="8">Agustus</option>
-        <option value="9">September</option>
-        <option value="10">Oktober</option>
-        <option value="11">November</option>
-        <option value="12">Desember</option>
-      </select>
+        </select>
       <select id="tahunFilter" onchange="terapkanFilter()"></select>
     </div>
   </div>
 
   <div class="card">
-    <div id="loading" class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Mengambil data laporan foto...</div>
+    <div class="info-box">
+      <i class="fa-solid fa-circle-info"></i> Daftar toko di bawah ini diambil dari <b>Jadwal/Laporan SO Harian</b>. Status tombol akan otomatis mendeteksi apakah toko tersebut sudah upload di <b>Form Foto/Dokumen</b> di hari yang sama.
+    </div>
+    
+    <div id="loading" class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Sinkronisasi 2 Database Spreadsheet...</div>
+    
     <table id="tabelData" style="display: none;">
       <thead>
         <tr>
-          <th>Tanggal</th>
+          <th>Tanggal SO</th>
           <th>Kode Toko</th>
           <th>PIC / Tim SO</th>
           <th>Foto Before</th>
           <th>Foto After</th>
+          <th>Dokumen LHSO</th>
+          <th>Dokumen BASO</th>
           <th>Foto Brankas</th>
         </tr>
       </thead>
       <tbody id="isiTabel">
-        </tbody>
+      </tbody>
     </table>
   </div>
 </div>
 
 <script>
-  // PENTING: Ganti dengan URL Script Google yang mengarah ke database laporan foto jika berbeda
-  const scriptURL = "https://script.google.com/macros/s/AKfycbyEQ0yzvK_CnzHaWFHSjh3w94Z1pg2lu_h-3_pZ2FTmmw3q914O6nwIUIu9vidcyimjmg/exec";
+  // ==========================================
+  // PENTING: MASUKAN KEDUA URL APP SCRIPT DISINI
+  // ==========================================
   
-  let dataGlobal = [];
-  let headerGlobal = [];
+  // 1. URL App Script dari Spreadsheet SO HARIAN (Untuk ambil daftar absen & PIC)
+  const urlSO = "MASUKKAN_URL_SO_HARIAN_DISINI"; 
+  
+  // 2. URL App Script dari Spreadsheet FOTO/DOKUMEN (Untuk ambil link fotonya)
+  const urlFoto = "MASUKKAN_URL_FOTO_DISINI"; 
+
+  let dataSOGlobal = [];
+  let headerSO = [];
+  
+  let dataFotoGlobal = [];
+  let headerFoto = [];
 
   window.onload = function() {
     setupFilterWaktu();
-    fetchData();
+    fetchDataGabungan();
   };
 
   function setupFilterWaktu() {
+    const bulanArr = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+    const blnSelect = document.getElementById("bulanFilter");
     const sekarang = new Date();
-    document.getElementById("bulanFilter").value = sekarang.getMonth() + 1; 
+    
+    bulanArr.forEach((bln, idx) => {
+      let opt = document.createElement("option");
+      opt.value = idx + 1; opt.text = bln;
+      blnSelect.appendChild(opt);
+    });
+    blnSelect.value = sekarang.getMonth() + 1; 
     
     const thnSelect = document.getElementById("tahunFilter");
     const thnSekarang = sekarang.getFullYear();
@@ -247,83 +278,135 @@
     }
   }
 
-  function fetchData() {
-    fetch(scriptURL)
-      .then(response => response.json())
-      .then(data => {
-        headerGlobal = data[0]; 
-        dataGlobal = data.slice(1); 
-        
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("tabelData").style.display = "table";
-        terapkanFilter(); 
-      })
-      .catch(error => {
-        document.getElementById("loading").innerHTML = "Gagal memuat data. Pastikan Script sudah di-deploy ulang.";
-      });
+  // Narik 2 data sekaligus pakai Promise.all
+  function fetchDataGabungan() {
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("tabelData").style.display = "none";
+
+    Promise.all([
+      fetch(urlSO).then(res => res.json()),
+      fetch(urlFoto).then(res => res.json())
+    ])
+    .then(([hasilSO, hasilFoto]) => {
+      headerSO = hasilSO[0];
+      dataSOGlobal = hasilSO.slice(1);
+
+      headerFoto = hasilFoto[0];
+      dataFotoGlobal = hasilFoto.slice(1);
+      
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("tabelData").style.display = "table";
+      
+      terapkanFilter(); 
+    })
+    .catch(error => {
+      document.getElementById("loading").innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Gagal memuat data. Pastikan kedua link App Script sudah di-deploy dengan benar.";
+      console.error(error);
+    });
   }
 
-  function cekTautanFoto(urlData) {
-    if (urlData && urlData.trim() !== "" && (urlData.includes("http") || urlData.includes("drive.google"))) {
-      return `<a href="${urlData}" target="_blank" class="btn-photo"><i class="fa-solid fa-image"></i> Lihat</a>`;
+  function cekTautanFoto(urlData, tipe) {
+    if (!urlData || urlData.trim() === "") return `<span class="badge-kosong">Belum Ada</span>`;
+    
+    let links = urlData.match(/(https?:\/\/[^\s]+)/g);
+    
+    if (links && links.length > 0) {
+      let icon = tipe === 'doc' ? 'fa-file-pdf' : 'fa-image';
+      let btnClass = tipe === 'doc' ? 'btn-photo btn-doc' : 'btn-photo';
+      
+      if (links.length === 1) {
+        return `<a href="${links[0]}" target="_blank" class="${btnClass}"><i class="fa-solid ${icon}"></i> Lihat</a>`;
+      } else {
+        let html = '<div class="link-container">';
+        links.forEach((link, idx) => {
+            html += `<a href="${link}" target="_blank" class="${btnClass}"><i class="fa-solid ${icon}"></i> ${idx + 1}</a>`;
+        });
+        html += '</div>';
+        return html;
+      }
     } else {
       return `<span class="badge-kosong">Belum Ada</span>`;
     }
+  }
+
+  // Fungsi untuk menyamakan format tanggal agar bisa dicocokkan
+  function getStartOfDay(dateString) {
+    let d = new Date(dateString);
+    if (isNaN(d)) return null;
+    d.setHours(0,0,0,0);
+    return d.getTime();
   }
 
   function terapkanFilter() {
     const blnPilih = parseInt(document.getElementById("bulanFilter").value);
     const thnPilih = parseInt(document.getElementById("tahunFilter").value);
     
-    // Sesuaikan kata kunci di bawah ini dengan nama header asli di Google Sheet kamu!
-    const idxTanggal = headerGlobal.findIndex(h => h.toLowerCase().includes("tanggal"));
-    const idxToko = headerGlobal.findIndex(h => h.toLowerCase().includes("toko"));
-    
-    // Mencari header yang mengandung kata 'pic', 'officer', atau 'nama'
-    const idxPIC = headerGlobal.findIndex(h => h.toLowerCase().includes("pic") || h.toLowerCase().includes("officer") || h.toLowerCase().includes("nama"));
-    
-    // Index untuk foto
-    const idxBefore = headerGlobal.findIndex(h => h.toLowerCase().includes("before"));
-    const idxAfter = headerGlobal.findIndex(h => h.toLowerCase().includes("after"));
-    const idxBrankas = headerGlobal.findIndex(h => h.toLowerCase().includes("brankas"));
+    // Index Data SO (Base Data)
+    const idxTglSO = headerSO.findIndex(h => h.toLowerCase().includes("tanggal"));
+    const idxTokoSO = headerSO.findIndex(h => h.toLowerCase().includes("toko"));
+    const idxPICSO = headerSO.findIndex(h => h.toLowerCase().includes("pic") || h.toLowerCase().includes("officer") || h.toLowerCase().includes("nama"));
 
-    let dataTerfilter = dataGlobal.filter(row => {
-      let tglRow = new Date(row[idxTanggal]);
-      if (isNaN(tglRow)) return false; 
-      return (tglRow.getMonth() + 1 === blnPilih) && (tglRow.getFullYear() === thnPilih);
+    // Index Data Foto
+    const idxTglF = headerFoto.findIndex(h => h.toLowerCase().includes("tanggal"));
+    const idxTokoF = headerFoto.findIndex(h => h.toLowerCase().includes("toko"));
+    const idxBefore = headerFoto.findIndex(h => h.toLowerCase().includes("before"));
+    const idxAfter = headerFoto.findIndex(h => h.toLowerCase().includes("after"));
+    const idxLHSO = headerFoto.findIndex(h => h.toLowerCase().includes("lhso"));
+    const idxBASO = headerFoto.findIndex(h => h.toLowerCase().includes("baso"));
+    const idxBrankas = headerFoto.findIndex(h => h.toLowerCase().includes("brankas"));
+
+    // 1. Filter Data SO berdasarkan bulan dan tahun
+    let dataSOBulanIni = dataSOGlobal.filter(row => {
+      let tgl = new Date(row[idxTglSO]);
+      if (isNaN(tgl)) return false; 
+      return (tgl.getMonth() + 1 === blnPilih) && (tgl.getFullYear() === thnPilih);
     });
 
-    dataTerfilter.sort((a, b) => new Date(b[idxTanggal]) - new Date(a[idxTanggal]));
+    // Urutkan Data SO (Tanggal terbaru di atas)
+    dataSOBulanIni.sort((a, b) => new Date(b[idxTglSO]) - new Date(a[idxTglSO]));
 
-    renderTabel(dataTerfilter, idxTanggal, idxToko, idxPIC, idxBefore, idxAfter, idxBrankas);
-  }
-
-  function renderTabel(data, idxTanggal, idxToko, idxPIC, idxBefore, idxAfter, idxBrankas) {
     const tbody = document.getElementById("isiTabel");
     tbody.innerHTML = "";
 
-    if(data.length === 0) {
-      tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>Belum ada laporan foto di bulan ini.</td></tr>";
+    if(dataSOBulanIni.length === 0) {
+      tbody.innerHTML = "<tr><td colspan='8' style='text-align:center; padding: 20px;'>Belum ada data SO Harian di bulan ini.</td></tr>";
       return;
     }
 
-    data.forEach(row => {
-      let tglAsli = new Date(row[idxTanggal]);
-      let tglRapi = tglAsli.toLocaleDateString('id-ID', {day: '2-digit', month: 'short', year: 'numeric'});
+    // 2. Loop Data SO, lalu cari jodohnya di Data Foto
+    dataSOBulanIni.forEach(rowSO => {
+      let tglAsliSO = new Date(rowSO[idxTglSO]);
+      let tglRapiSO = tglAsliSO.toLocaleDateString('id-ID', {day: '2-digit', month: 'short', year: 'numeric'});
+      
+      // Ambil kunci pencarian (Waktu jam direset ke 00:00:00 agar gampang dicocokan)
+      let keyTglSO = getStartOfDay(rowSO[idxTglSO]);
+      let keyTokoSO = (rowSO[idxTokoSO] || "").trim().toLowerCase();
 
-      // Memproses tampilan kolom foto menggunakan fungsi cekTautanFoto()
-      let fotoBefore = cekTautanFoto(idxBefore !== -1 ? row[idxBefore] : "");
-      let fotoAfter = cekTautanFoto(idxAfter !== -1 ? row[idxAfter] : "");
-      let fotoBrankas = cekTautanFoto(idxBrankas !== -1 ? row[idxBrankas] : "");
+      // Cari di data foto yang tanggal & tokonya SAMA PERSIS
+      let matchFoto = dataFotoGlobal.find(rowF => {
+        let keyTglF = getStartOfDay(rowF[idxTglF]);
+        let keyTokoF = (rowF[idxTokoF] || "").trim().toLowerCase();
+        return keyTglF === keyTglSO && keyTokoF === keyTokoSO;
+      });
 
+      // Kalau ketemu (matchFoto), ambil linknya. Kalau nggak ketemu, kasih string kosong ""
+      let valBefore = matchFoto && idxBefore !== -1 ? matchFoto[idxBefore] : "";
+      let valAfter  = matchFoto && idxAfter !== -1 ? matchFoto[idxAfter] : "";
+      let valLHSO   = matchFoto && idxLHSO !== -1 ? matchFoto[idxLHSO] : "";
+      let valBASO   = matchFoto && idxBASO !== -1 ? matchFoto[idxBASO] : "";
+      let valBrankas = matchFoto && idxBrankas !== -1 ? matchFoto[idxBrankas] : "";
+
+      // Render ke baris tabel
       let tr = document.createElement("tr");
       tr.innerHTML = `
-        <td style="font-weight:600;">${tglRapi}</td>
-        <td style="font-weight:700; color:var(--primary-blue);">${row[idxToko] || '-'}</td>
-        <td>${idxPIC !== -1 ? (row[idxPIC] || '-') : '-'}</td>
-        <td>${fotoBefore}</td>
-        <td>${fotoAfter}</td>
-        <td>${fotoBrankas}</td>
+        <td style="font-weight:600;">${tglRapiSO}</td>
+        <td style="font-weight:700; color:var(--primary-blue);">${rowSO[idxTokoSO] || '-'}</td>
+        <td>${idxPICSO !== -1 ? (rowSO[idxPICSO] || '-') : '-'}</td>
+        <td>${cekTautanFoto(valBefore, 'img')}</td>
+        <td>${cekTautanFoto(valAfter, 'img')}</td>
+        <td>${cekTautanFoto(valLHSO, 'doc')}</td>
+        <td>${cekTautanFoto(valBASO, 'doc')}</td>
+        <td>${cekTautanFoto(valBrankas, 'img')}</td>
       `;
       tbody.appendChild(tr);
     });
