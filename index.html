@@ -12,7 +12,7 @@
         /* Reset & Style Dasar */
         body {
             margin: 0;
-            padding: 20px 0; /* Tambah padding atas bawah biar lega kalau di desktop */
+            padding: 20px 0; 
             background-color: #e9ecef; 
             display: flex;
             justify-content: center;
@@ -26,7 +26,7 @@
             background-color: #f8f9fa; 
             width: 100%;
             max-width: 420px;
-            height: auto; /* Diubah jadi auto biar menyesuaikan isi */
+            height: auto; 
             min-height: 850px;
             display: flex;
             flex-direction: column;
@@ -37,7 +37,7 @@
             overflow: hidden;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             position: relative;
-            padding-bottom: 30px; /* Jarak bawah */
+            padding-bottom: 30px; 
         }
 
         /* Responsive untuk HP beneran */
@@ -167,9 +167,13 @@
         .btn-orange .btn-icon { color: #f39c12; }
         .btn-orange::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #f39c12; }
 
-        /* Variasi Tombol 5: Teal (BARU - Untuk Dashboard Monitoring) */
+        /* Variasi Tombol 5: Teal (Untuk Dashboard Monitoring SO) */
         .btn-teal .btn-icon { color: #17a2b8; }
         .btn-teal::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #17a2b8; }
+
+        /* Variasi Tombol 6: Ungu (BARU - Untuk Dashboard Monitoring Foto) */
+        .btn-purple .btn-icon { color: #6f42c1; }
+        .btn-purple::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #6f42c1; }
 
         /* Label Badge Baru di Tombol */
         .badge-new {
@@ -214,15 +218,23 @@
                 </div>
             </a>
 
-           <a href="monitoring.html" class="btn-card btn-teal">
-                <span class="badge-new">NEW</span>
+            <a href="monitoring.html" class="btn-card btn-teal">
                 <i class="fa-solid fa-desktop btn-icon"></i>
                 <div class="btn-text">
-                    DASHBOARD MONITORING<br>
-                    <span style="font-size: 12px; color: #6c757d; font-weight: 500;">Pantau Laporan Masuk</span>
+                    DASHBOARD MONITORING SO<br>
+                    <span style="font-size: 12px; color: #6c757d; font-weight: 500;">Pantau Laporan SO Masuk</span>
                 </div>
             </a>
- 
+
+            <a href="monitoring-foto.html" class="btn-card btn-purple">
+                <span class="badge-new">NEW</span>
+                <i class="fa-solid fa-camera-retro btn-icon"></i>
+                <div class="btn-text">
+                    DASHBOARD MONITORING FOTO<br>
+                    <span style="font-size: 12px; color: #6c757d; font-weight: 500;">Pantau Laporan B/A & Brankas</span>
+                </div>
+            </a>
+
             <a href="https://docs.google.com/spreadsheets/d/1--15lTnPMyNCLs7S2svKHWqvjzzfl5FavUs5lLoi88w/edit?usp=drivesdk" target="_blank" class="btn-card btn-green">
                 <i class="fa-solid fa-file-excel btn-icon"></i>
                 <div class="btn-text">
