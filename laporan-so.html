@@ -40,6 +40,28 @@
       animation: fadeIn 0.5s ease-in-out;
     }
 
+    /* TOMBOL KEMBALI (BARU DITAMBAHKAN) */
+    .btn-back-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #fff;
+      color: var(--primary-blue);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+      transition: all 0.3s;
+    }
+    .btn-back-nav:hover {
+      background-color: var(--primary-blue);
+      color: #fff;
+    }
+
     /* HEADER STYLE */
     .header-card {
       background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
@@ -114,7 +136,7 @@
     }
     button[type="submit"]:hover { background: var(--secondary-blue); transform: translateY(-2px); }
 
-    /* STATE SUKSES (BARU) */
+    /* STATE SUKSES */
     .success-container {
       background: #fff;
       padding: 40px 20px;
@@ -124,11 +146,9 @@
       margin-bottom: 20px;
       border: 2px solid #28a745;
       animation: fadeIn 0.5s ease-in-out;
-      display: none; /* Disembunyikan awalnya */
+      display: none; 
     }
-    .success-container i.icon-success {
-      font-size: 60px; color: #28a745; margin-bottom: 15px;
-    }
+    .success-container i.icon-success { font-size: 60px; color: #28a745; margin-bottom: 15px; }
     .success-container h2 { color: #28a745; margin: 0 0 10px 0; font-size: 22px; }
     .success-container p { color: var(--text-muted); margin-bottom: 25px; font-size: 14px; }
     
@@ -170,6 +190,10 @@
 
 <div class="container">
   
+  <a href="index.html" class="btn-back-nav">
+    <i class="fa-solid fa-arrow-left"></i> Kembali
+  </a>
+
   <div class="header-card">
     <h1>LAPORAN SO HARIAN</h1>
     <p>INVENTORY CONTROL TANGERANG 1</p>
