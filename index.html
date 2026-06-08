@@ -91,13 +91,24 @@
             font-weight: 600;
         }
 
-        /* Container Konten Utama */
-        .content-area {
+        /* Container Konten Views (Ganti-ganti halaman) */
+        .view-section {
             width: 85%;
             margin-top: 30px;
-            display: flex;
+            display: none; /* Disembunyikan default */
             flex-direction: column;
             gap: 15px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* Class untuk halaman yang aktif */
+        .view-active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Teks Instruksi */
@@ -108,6 +119,16 @@
             font-weight: 600;
             font-style: italic;
             margin: 0 0 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Style Grid untuk Menu Kotak (Point I) */
+        .grid-menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
         }
 
         /* Style dasar tombol Card */
@@ -123,6 +144,12 @@
             position: relative;
             overflow: hidden;
             border: 1px solid #eaeaea;
+            cursor: pointer;
+            border: none;
+            text-align: left;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         .btn-card:hover {
@@ -132,6 +159,28 @@
 
         .btn-card:active {
             transform: scale(0.97);
+        }
+
+        /* Modifier untuk tombol Kotak (Point I) */
+        .btn-square {
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            padding: 30px 15px;
+            aspect-ratio: 1 / 1;
+        }
+        .btn-square .btn-icon {
+            margin-right: 0;
+            margin-bottom: 15px;
+            font-size: 40px;
+        }
+        .btn-square .btn-text {
+            text-align: center;
+        }
+        .btn-square::before {
+            width: 100%;
+            height: 6px;
+            bottom: auto; /* Garis di atas untuk kotak */
         }
 
         /* Ikon di dalam tombol */
@@ -146,32 +195,28 @@
         .btn-text {
             color: #2b2b2b;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 14px;
             line-height: 1.4;
-            text-align: left;
         }
 
-        /* Variasi Tombol 1: Biru (Untuk SO & Kas) */
+        /* Variasi Warna Tombol */
         .btn-blue .btn-icon { color: #005b9f; }
         .btn-blue::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #005b9f; }
+        .btn-square.btn-blue::before { width: 100%; height: 6px; }
 
-        /* Variasi Tombol 2: Kuning/Merah (Untuk Before After dll) */
         .btn-yellow .btn-icon { color: #e51d20; }
         .btn-yellow::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #ffd600; }
+        .btn-square.btn-yellow::before { width: 100%; height: 6px; }
 
-        /* Variasi Tombol 3: Hijau (Untuk Tautan Google Sheets SO) */
         .btn-green .btn-icon { color: #0f9d58; }
         .btn-green::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #0f9d58; }
 
-        /* Variasi Tombol 4: Oranye (Untuk Tautan Google Sheets B/A) */
         .btn-orange .btn-icon { color: #f39c12; }
         .btn-orange::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #f39c12; }
 
-        /* Variasi Tombol 5: Teal (Untuk Dashboard Monitoring SO) */
         .btn-teal .btn-icon { color: #17a2b8; }
         .btn-teal::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #17a2b8; }
 
-        /* Variasi Tombol 6: Ungu (BARU - Untuk Dashboard Monitoring Foto) */
         .btn-purple .btn-icon { color: #6f42c1; }
         .btn-purple::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #6f42c1; }
 
@@ -189,6 +234,27 @@
             letter-spacing: 0.5px;
         }
 
+        /* Tombol Back to Menu */
+        .btn-back {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #343a40;
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s;
+        }
+        .btn-back:hover { background-color: #23272b; }
+        .btn-back i { margin-right: 10px; }
+
     </style>
 </head>
 <body>
@@ -200,57 +266,87 @@
             <p>TANGERANG 1</p>
         </header>
 
-        <div class="content-area">
+        <div id="view-main" class="view-section view-active">
+            <p class="instruction-text">Select The Menu</p>
             
-            <p class="instruction-text">( Klik menu di bawah )</p>
+            <div class="grid-menu">
+                <button onclick="switchView('view-sokas')" class="btn-card btn-square btn-blue">
+                    <i class="fa-solid fa-clipboard-check btn-icon"></i>
+                    <div class="btn-text">LAPORAN<br>SO KAS</div>
+                </button>
+
+                <button onclick="switchView('view-foto')" class="btn-card btn-square btn-yellow">
+                    <i class="fa-solid fa-camera-retro btn-icon"></i>
+                    <div class="btn-text">LAPORAN<br>SO FOTO</div>
+                </button>
+            </div>
+        </div>
+
+        <div id="view-sokas" class="view-section">
+            <p class="instruction-text">Menu SO KAS</p>
 
             <a href="laporan-so.html" class="btn-card btn-blue">
                 <i class="fa-solid fa-clipboard-check btn-icon"></i>
-                <div class="btn-text">
-                    LAPORAN<br>SO & KAS HARIAN
-                </div>
-            </a>
-
-            <a href="laporan-foto.html" class="btn-card btn-yellow">
-                <i class="fa-solid fa-boxes-stacked btn-icon"></i>
-                <div class="btn-text">
-                    LAPORAN BEFORE - AFTER<br>BASO & LHSO<br>SO BRANKAS
-                </div>
+                <div class="btn-text">INPUT LAPORAN<br>SO & KAS HARIAN</div>
             </a>
 
             <a href="monitoring.html" class="btn-card btn-teal">
                 <i class="fa-solid fa-desktop btn-icon"></i>
                 <div class="btn-text">
-                    DASHBOARD MONITORING SO<br>
+                    MONITORING SO KAS<br>
                     <span style="font-size: 12px; color: #6c757d; font-weight: 500;">Pantau Laporan SO Masuk</span>
                 </div>
+            </a>
+
+            <a href="https://docs.google.com/spreadsheets/d/1--15lTnPMyNCLs7S2svKHWqvjzzfl5FavUs5lLoi88w/edit?usp=drivesdk" target="_blank" class="btn-card btn-green">
+                <i class="fa-solid fa-file-excel btn-icon"></i>
+                <div class="btn-text">CEK SPREADSHEET SO</div>
+            </a>
+
+            <button onclick="switchView('view-main')" class="btn-back">
+                <i class="fa-solid fa-arrow-rotate-left"></i> BACK TO MENU
+            </button>
+        </div>
+
+        <div id="view-foto" class="view-section">
+            <p class="instruction-text">Menu Laporan Foto</p>
+
+            <a href="laporan-foto.html" class="btn-card btn-yellow">
+                <i class="fa-solid fa-images btn-icon"></i>
+                <div class="btn-text">INPUT LAPORAN FOTO<br>B/A & BRANKAS</div>
             </a>
 
             <a href="monitoring_foto.html" class="btn-card btn-purple">
                 <span class="badge-new">NEW</span>
                 <i class="fa-solid fa-camera-retro btn-icon"></i>
                 <div class="btn-text">
-                    DASHBOARD MONITORING FOTO<br>
-                    <span style="font-size: 12px; color: #6c757d; font-weight: 500;">Pantau Laporan B/A & Brankas</span>
-                </div>
-            </a>
-
-            <a href="https://docs.google.com/spreadsheets/d/1--15lTnPMyNCLs7S2svKHWqvjzzfl5FavUs5lLoi88w/edit?usp=drivesdk" target="_blank" class="btn-card btn-green">
-                <i class="fa-solid fa-file-excel btn-icon"></i>
-                <div class="btn-text">
-                    CEK LAPORAN SO (SPREADSHEET)
+                    MONITORING FOTO<br>
+                    <span style="font-size: 12px; color: #6c757d; font-weight: 500;">Pantau Laporan B/A</span>
                 </div>
             </a>
 
             <a href="https://docs.google.com/spreadsheets/d/1YDn5DhDLdRDHDvWhqrLtwN5nB3fswonvFV59c874uI0/edit?usp=sharing" target="_blank" class="btn-card btn-orange">
-                <i class="fa-solid fa-images btn-icon"></i>
-                <div class="btn-text">
-                    CEK LAPORAN BEFORE-AFTER SO (SPREADSHEET) 
-                </div>
+                <i class="fa-solid fa-file-image btn-icon"></i>
+                <div class="btn-text">CEK SPREADSHEET B/A</div>
             </a>
-            
+
+            <button onclick="switchView('view-main')" class="btn-back">
+                <i class="fa-solid fa-arrow-rotate-left"></i> BACK TO MENU
+            </button>
         </div>
+
     </div>
+
+    <script>
+        function switchView(targetId) {
+            // Sembunyikan semua section
+            document.querySelectorAll('.view-section').forEach(function(el) {
+                el.classList.remove('view-active');
+            });
+            // Tampilkan section yang dipilih
+            document.getElementById(targetId).classList.add('view-active');
+        }
+    </script>
 
 </body>
 </html>
