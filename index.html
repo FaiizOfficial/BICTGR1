@@ -9,252 +9,154 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Reset & Style Dasar */
-        body {
-            margin: 0;
-            padding: 20px 0; 
-            background-color: #e9ecef; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Poppins', sans-serif;
+        /* Reset & Style Dasar (TETAP SAMA SEPERTI ASLINYA) */
+        body { margin: 0; padding: 20px 0; background-color: #e9ecef; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Poppins', sans-serif; }
+        .app-container { background-color: #f8f9fa; width: 100%; max-width: 420px; height: auto; min-height: 850px; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; border: 8px solid #333; border-radius: 30px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2); position: relative; padding-bottom: 30px; }
+        @media (max-width: 480px) { .app-container { border: none; border-radius: 0; min-height: 100vh; box-shadow: none; padding-bottom: 50px; } body { background-color: #f8f9fa; padding: 0; } }
+        .app-header { background: linear-gradient(135deg, #005b9f, #003e6d); width: 100%; padding: 40px 20px 50px 20px; text-align: center; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 5px 15px rgba(0, 91, 159, 0.4); box-sizing: border-box; }
+        .logo-img { max-width: 150px; background-color: white; padding: 10px 20px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .app-header h1 { color: white; margin: 0; font-size: 22px; font-weight: 800; line-height: 1.3; letter-spacing: 0.5px; text-transform: uppercase; }
+        .app-header p { color: #ffd600; margin: 5px 0 0 0; font-size: 14px; font-weight: 600; }
+        .view-section { width: 85%; margin-top: 30px; display: none; flex-direction: column; gap: 15px; animation: fadeIn 0.4s ease; }
+        .view-active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .instruction-text { text-align: center; color: #6c757d; font-size: 14px; font-weight: 600; font-style: italic; margin: 0 0 5px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
+        .btn-card { display: flex; align-items: center; text-decoration: none; background-color: white; padding: 20px; border-radius: 16px; box-shadow: 0 6px 12px rgba(0,0,0,0.06); transition: all 0.2s ease; position: relative; overflow: hidden; border: 1px solid #eaeaea; cursor: pointer; text-align: left; width: 100%; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        .btn-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .btn-card:active { transform: scale(0.97); }
+        .btn-square { flex-direction: column; justify-content: center; text-align: center; padding: 30px 15px; aspect-ratio: 1 / 1; }
+        .btn-square .btn-icon { margin-right: 0; margin-bottom: 15px; font-size: 40px; }
+        .btn-square .btn-text { text-align: center; }
+        .btn-square::before { width: 100%; height: 6px; bottom: auto; }
+        .btn-icon { font-size: 30px; margin-right: 20px; width: 40px; text-align: center; }
+        .btn-text { color: #2b2b2b; font-weight: 700; font-size: 14px; line-height: 1.4; }
+        .btn-blue .btn-icon { color: #005b9f; } .btn-blue::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #005b9f; } .btn-square.btn-blue::before { width: 100%; height: 6px; }
+        .btn-yellow .btn-icon { color: #e51d20; } .btn-yellow::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #ffd600; } .btn-square.btn-yellow::before { width: 100%; height: 6px; }
+        .btn-green .btn-icon { color: #0f9d58; } .btn-green::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #0f9d58; }
+        .btn-orange .btn-icon { color: #f39c12; } .btn-orange::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #f39c12; }
+        .btn-teal .btn-icon { color: #17a2b8; } .btn-teal::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #17a2b8; }
+        .btn-purple .btn-icon { color: #6f42c1; } .btn-purple::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #6f42c1; }
+        .badge-new { background-color: #e51d20; color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; position: absolute; top: 15px; right: 15px; font-weight: 800; letter-spacing: 0.5px; }
+        .btn-back { display: flex; align-items: center; justify-content: center; background-color: #343a40; color: white; padding: 15px; border-radius: 12px; font-weight: 600; font-size: 14px; text-decoration: none; margin-top: 20px; border: none; cursor: pointer; font-family: 'Poppins', sans-serif; transition: background 0.3s; }
+        .btn-back:hover { background-color: #23272b; } .btn-back i { margin-right: 10px; }
+
+
+        /* ====================================================
+           TAMBAHAN CSS KHUSUS UNTUK POP-UP MODAL & FOTO HD
+           ==================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); /* Background gelap lebih pekat */
+            display: none; /* Default disembunyikan */
+            justify-content: center; align-items: center;
+            z-index: 9999;
+            padding: 15px; box-sizing: border-box;
+            backdrop-filter: blur(5px); /* Efek blur ala iOS */
         }
 
-        /* Container utama ala HP */
-        .app-container {
-            background-color: #f8f9fa; 
-            width: 100%;
-            max-width: 420px;
-            height: auto; 
-            min-height: 850px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-sizing: border-box;
-            border: 8px solid #333; 
-            border-radius: 30px;
+        .modal-content {
+            background: #f8f9fa;
+            width: 100%; max-width: 400px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            display: flex; flex-direction: column;
+            max-height: 90vh;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #e51d20, #b71618); /* Merah peringatan */
+            color: white; padding: 15px; text-align: center;
+            font-weight: 800; font-size: 16px; letter-spacing: 1px;
             position: relative;
-            padding-bottom: 30px; 
+        }
+        
+        .modal-header .close-btn {
+            position: absolute; right: 15px; top: 12px;
+            color: white; font-size: 20px; font-weight: bold;
+            cursor: pointer; opacity: 0.5; display: none; /* Diumpetin sampe timer abis */
         }
 
-        /* Responsive untuk HP beneran */
-        @media (max-width: 480px) {
-            .app-container {
-                border: none;
-                border-radius: 0;
-                min-height: 100vh;
-                box-shadow: none;
-                padding-bottom: 50px;
-            }
-            body { background-color: #f8f9fa; padding: 0; }
+        .modal-body {
+            padding: 20px 15px; overflow-y: auto; flex-grow: 1;
+            background-color: #eaeaea; /* Warna abu muda biar card foto menonjol */
         }
 
-        /* Header Melengkung Khas Biru Indomaret */
-        .app-header {
-            background: linear-gradient(135deg, #005b9f, #003e6d);
-            width: 100%;
-            padding: 40px 20px 50px 20px;
-            text-align: center;
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-            box-shadow: 0 5px 15px rgba(0, 91, 159, 0.4);
-            box-sizing: border-box;
-        }
-
-        /* Logo Indomaret */
-        .logo-img {
-            max-width: 150px;
-            background-color: white;
-            padding: 10px 20px;
+        .guide-section {
+            background: white;
             border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .app-header h1 {
-            color: white;
-            margin: 0;
-            font-size: 22px;
-            font-weight: 800;
-            line-height: 1.3;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .app-header p {
-            color: #ffd600; 
-            margin: 5px 0 0 0;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        /* Container Konten Views (Ganti-ganti halaman) */
-        .view-section {
-            width: 85%;
-            margin-top: 30px;
-            display: none; /* Disembunyikan default */
-            flex-direction: column;
-            gap: 15px;
-            animation: fadeIn 0.4s ease;
-        }
-
-        /* Class untuk halaman yang aktif */
-        .view-active {
-            display: flex;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Teks Instruksi */
-        .instruction-text {
-            text-align: center;
-            color: #6c757d;
-            font-size: 14px;
-            font-weight: 600;
-            font-style: italic;
-            margin: 0 0 5px 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Style Grid untuk Menu Kotak (Point I) */
-        .grid-menu {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            width: 100%;
-        }
-
-        /* Style dasar tombol Card */
-        .btn-card {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            background-color: white;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.06);
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #eaeaea;
-            cursor: pointer;
-            border: none;
-            text-align: left;
-            width: 100%;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .btn-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .btn-card:active {
-            transform: scale(0.97);
-        }
-
-        /* Modifier untuk tombol Kotak (Point I) */
-        .btn-square {
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-            padding: 30px 15px;
-            aspect-ratio: 1 / 1;
-        }
-        .btn-square .btn-icon {
-            margin-right: 0;
-            margin-bottom: 15px;
-            font-size: 40px;
-        }
-        .btn-square .btn-text {
-            text-align: center;
-        }
-        .btn-square::before {
-            width: 100%;
-            height: 6px;
-            bottom: auto; /* Garis di atas untuk kotak */
-        }
-
-        /* Ikon di dalam tombol */
-        .btn-icon {
-            font-size: 30px;
-            margin-right: 20px;
-            width: 40px;
-            text-align: center;
-        }
-
-        /* Teks di dalam tombol */
-        .btn-text {
-            color: #2b2b2b;
-            font-weight: 700;
-            font-size: 14px;
-            line-height: 1.4;
-        }
-
-        /* Variasi Warna Tombol */
-        .btn-blue .btn-icon { color: #005b9f; }
-        .btn-blue::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #005b9f; }
-        .btn-square.btn-blue::before { width: 100%; height: 6px; }
-
-        .btn-yellow .btn-icon { color: #e51d20; }
-        .btn-yellow::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #ffd600; }
-        .btn-square.btn-yellow::before { width: 100%; height: 6px; }
-
-        .btn-green .btn-icon { color: #0f9d58; }
-        .btn-green::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #0f9d58; }
-
-        .btn-orange .btn-icon { color: #f39c12; }
-        .btn-orange::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #f39c12; }
-
-        .btn-teal .btn-icon { color: #17a2b8; }
-        .btn-teal::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #17a2b8; }
-
-        .btn-purple .btn-icon { color: #6f42c1; }
-        .btn-purple::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background-color: #6f42c1; }
-
-        /* Label Badge Baru di Tombol */
-        .badge-new {
-            background-color: #e51d20;
-            color: white;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 10px;
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-        }
-
-        /* Tombol Back to Menu */
-        .btn-back {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #343a40;
-            color: white;
             padding: 15px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 14px;
-            text-decoration: none;
-            margin-top: 20px;
-            border: none;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: background 0.3s;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid #005b9f;
         }
-        .btn-back:hover { background-color: #23272b; }
-        .btn-back i { margin-right: 10px; }
 
+        .guide-title {
+            font-weight: 800; color: #005b9f; font-size: 15px;
+            margin-bottom: 15px; display: flex; align-items: center;
+            border-bottom: 2px dashed #eee; padding-bottom: 10px;
+        }
+        .guide-title i { margin-right: 10px; font-size: 18px; color: #ffd600; text-shadow: 0 1px 2px rgba(0,0,0,0.2);}
+
+        /* INI KUNCI BIKIN FOTO JADI KELIHATAN HD & PREMIUM */
+        .premium-doc {
+            background: #fff;
+            padding: 6px;
+            border-radius: 8px;
+            border: 3px solid #0f9d58; /* Frame hijau tanda valid */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15); /* Shadow dalem bikin 3D */
+            position: relative;
+        }
+        .premium-doc img {
+            width: 100%; border-radius: 4px; display: block;
+            filter: contrast(1.1) saturate(1.1); /* Ningkatin ketajaman foto lu pake CSS */
+        }
+        /* Badge Centang Ijo Melayang */
+        .badge-valid {
+            position: absolute; top: -12px; right: -12px;
+            background: #0f9d58; color: white; width: 35px; height: 35px;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 18px; border: 3px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 2;
+        }
+
+        .guide-alert {
+            background: #fff3cd; color: #856404;
+            padding: 10px; border-radius: 8px; font-size: 12px;
+            font-weight: 700; text-align: center; margin-top: 15px;
+            border: 1px solid #ffeeba;
+        }
+        .guide-alert i { margin-right: 5px; color: #e51d20; }
+
+        .modal-footer {
+            padding: 20px; background: white; text-align: center;
+            border-top: 1px solid #ddd;
+        }
+
+        .timer-text { font-size: 13px; color: #6c757d; margin-bottom: 12px; font-weight: 600; }
+        .timer-text span { font-weight: 800; color: #e51d20; font-size: 16px; }
+
+        .btn-continue {
+            background: #e9ecef; color: #6c757d; border: none; padding: 15px;
+            border-radius: 12px; width: 100%; font-weight: 800; font-size: 14px;
+            cursor: not-allowed; transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Saat tombol udah aktif */
+        .btn-continue.active {
+            background: #005b9f; color: white; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 91, 159, 0.4);
+        }
+        .btn-continue.active:hover { background: #003e6d; transform: translateY(-2px); }
     </style>
 </head>
 <body>
@@ -311,7 +213,7 @@
         <div id="view-foto" class="view-section">
             <p class="instruction-text">Menu Laporan Foto</p>
 
-            <a href="laporan-foto.html" class="btn-card btn-yellow">
+            <a href="#" onclick="showTutorialModal(event)" class="btn-card btn-yellow">
                 <i class="fa-solid fa-images btn-icon"></i>
                 <div class="btn-text">INPUT LAPORAN FOTO<br>B/A & BRANKAS</div>
             </a>
@@ -334,17 +236,135 @@
                 <i class="fa-solid fa-arrow-rotate-left"></i> BACK TO MENU
             </button>
         </div>
+    </div>
 
+    <div class="modal-overlay" id="tutorialModal">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <i class="fa-solid fa-triangle-exclamation" style="color: #ffd600; margin-right: 8px;"></i>
+                PANDUAN INPUT FOTO
+                <span class="close-btn" id="btnCloseModal" onclick="closeModal()">&times;</span>
+            </div>
+
+            <div class="modal-body">
+                <p style="font-size: 12px; text-align: center; margin-top: 0; color: #555; font-weight: 600;">
+                    Baca panduan ini agar terhindar dari salah input data!
+                </p>
+
+                <div class="guide-section">
+                    <div class="guide-title"><i class="fa-solid fa-vault"></i> 1. SO BRANKAS</div>
+                    <div class="premium-doc">
+                        <div class="badge-valid"><i class="fa-solid fa-check"></i></div>
+                        <img src="brankas.jpg" alt="Contoh SO Brankas">
+                    </div>
+                    <div class="guide-alert">
+                        <i class="fa-solid fa-circle-exclamation"></i> WAJIB Terdapat Stempel & TTD Team Toko Asli!
+                    </div>
+                </div>
+
+                <div class="guide-section">
+                    <div class="guide-title"><i class="fa-solid fa-bowl-food"></i> 2. ADJUST DATA SOBIC</div>
+                    <div class="premium-doc">
+                        <div class="badge-valid"><i class="fa-solid fa-check"></i></div>
+                        <img src="baso.jpg" alt="Contoh Baso SOBIC">
+                    </div>
+                    <div class="guide-alert">
+                        <i class="fa-solid fa-circle-exclamation"></i> WAJIB Terdapat Stempel & TTD Team Toko Asli!
+                    </div>
+                </div>
+
+                <div class="guide-section">
+                    <div class="guide-title"><i class="fa-solid fa-clipboard-list"></i> 3. LAPORAN LHSO</div>
+                    <div class="premium-doc">
+                        <div class="badge-valid"><i class="fa-solid fa-check"></i></div>
+                        <img src="lhso.jpg" alt="Contoh LHSO">
+                    </div>
+                    <div class="guide-alert">
+                        <i class="fa-solid fa-circle-exclamation"></i> WAJIB Terdapat Stempel & TTD Team Toko Asli!
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="timer-text" id="timerInfo">
+                    Tombol laporan aktif dalam <span id="countdownText">15</span> detik...
+                </div>
+                <button class="btn-continue" id="btnContinue" disabled onclick="masukLaporan()">
+                    <i class="fa-solid fa-lock" style="margin-right: 8px;"></i> MENUNGGU...
+                </button>
+            </div>
+
+        </div>
     </div>
 
     <script>
         function switchView(targetId) {
-            // Sembunyikan semua section
             document.querySelectorAll('.view-section').forEach(function(el) {
                 el.classList.remove('view-active');
             });
-            // Tampilkan section yang dipilih
             document.getElementById(targetId).classList.add('view-active');
+        }
+
+        // ==========================================
+        // LOGIKA JAVASCRIPT UNTUK MODAL TIMER
+        // ==========================================
+        let timerInterval;
+
+        function showTutorialModal(event) {
+            event.preventDefault(); // Mencegah link pindah halaman langsung
+            
+            // Munculin Pop up
+            document.getElementById('tutorialModal').style.display = 'flex';
+            
+            // Set waktu 15 detik
+            let timeLeft = 15;
+            const textHitungMundur = document.getElementById('countdownText');
+            const tombolLanjut = document.getElementById('btnContinue');
+            const infoTimer = document.getElementById('timerInfo');
+            const tombolTutup = document.getElementById('btnCloseModal');
+            
+            // Reset state tombol & text awal (buat jaga-jaga kalo diklik 2x)
+            tombolLanjut.disabled = true;
+            tombolLanjut.classList.remove('active');
+            tombolLanjut.innerHTML = '<i class="fa-solid fa-lock" style="margin-right: 8px;"></i> MENUNGGU...';
+            infoTimer.innerHTML = `Tombol laporan aktif dalam <span id="countdownText">${timeLeft}</span> detik...`;
+            tombolTutup.style.display = 'none';
+
+            // Bersihin interval sebelumnya (kalo ada)
+            clearInterval(timerInterval);
+
+            // Mulai Hitung Mundur
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('countdownText').innerText = timeLeft;
+
+                // Kalo timer udah 0
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    
+                    // Ubah UI tombol jadi aktif
+                    infoTimer.innerHTML = "<span style='color:#0f9d58;'>Panduan selesai dibaca. Silakan lanjut!</span>";
+                    tombolLanjut.disabled = false;
+                    tombolLanjut.classList.add('active');
+                    tombolLanjut.innerHTML = 'MASUK KE LAPORAN FOTO <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>';
+                    
+                    // Munculin tanda "X" di pojok kanan atas kalo-kalo mereka mau batalin
+                    tombolTutup.style.display = 'block';
+                }
+            }, 1000);
+        }
+
+        // Fungsi kalo tombol "Masuk Laporan" diklik
+        function masukLaporan() {
+            // Arahkan ke link asli
+            window.location.href = 'laporan-foto.html';
+        }
+
+        // Fungsi kalo mereka mau nutup pop-up (batalin)
+        function closeModal() {
+            document.getElementById('tutorialModal').style.display = 'none';
+            clearInterval(timerInterval); // Stop timer di background
         }
     </script>
 
