@@ -1,416 +1,366 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monitoring Foto & Dokumen SO (Merged)</title>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --primary-blue: #005b9f;
-      --secondary-blue: #00457c;
-      --accent-yellow: #ffd600;
-      --bg-color: #f0f2f5;
-      --card-bg: #ffffff;
-      --text-main: #2b2b2b;
-      --border-color: #dee2e6;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-color);
-      margin: 0;
-      padding: 20px;
-      color: var(--text-main);
-    }
-
-    .container {
-      max-width: 1200px; 
-      margin: auto;
-    }
-
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--primary-blue);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 15px;
-      background: white;
-      padding: 10px 18px;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      border: 1px solid var(--border-color);
-      transition: all 0.2s;
-    }
-    .back-btn:hover { background: var(--bg-color); transform: translateX(-3px); }
-
-    .header-card {
-      background: linear-gradient(135deg, #6f42c1, #4e2a84); 
-      padding: 20px;
-      border-radius: 15px;
-      text-align: center;
-      color: white;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      box-shadow: 0 5px 15px rgba(111, 66, 193, 0.3);
-    }
-
-    .header-title h1 { margin: 0; font-size: 20px; }
-    .header-title p { margin: 0; color: var(--accent-yellow); font-size: 13px; }
-
-    .filter-menu {
-      background: rgba(255,255,255,0.1);
-      padding: 10px 15px;
-      border-radius: 10px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .filter-menu select {
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: none;
-      font-family: 'Poppins', sans-serif;
-      outline: none;
-      cursor: pointer;
-    }
-
-    .card {
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      table-layout: auto;
-      min-width: 1000px; /* Lebar minimum biar ga dempet karena kolomnya banyak */
-    }
-
-    th, td {
-      padding: 12px 15px;
-      text-align: left;
-      border-bottom: 1px solid var(--border-color);
-      font-size: 13px;
-      vertical-align: middle;
-    }
-
-    th {
-      background-color: #f8f9fa;
-      color: var(--primary-blue);
-      font-weight: 600;
-    }
-
-    tr:hover { background-color: #f1f5f9; }
-
-    /* TOMBOL LINK (Support Multi-Link) */
-    .link-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .btn-photo {
-      background: #e3f2fd;
-      color: var(--primary-blue);
-      padding: 5px 10px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 11px;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: 0.2s;
-      border: 1px solid #90caf9;
-      white-space: nowrap;
-    }
-    .btn-photo:hover {
-      background: var(--primary-blue);
-      color: white;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring Foto & Dokumen SO (Merged)</title>
     
-    .btn-doc {
-      background: #e8f5e9;
-      color: #2e7d32;
-      border: 1px solid #a5d6a7;
-    }
-    .btn-doc:hover {
-      background: #2e7d32;
-      color: white;
-    }
-
-    .badge-kosong {
-      background: #ffebee;
-      color: #c62828;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      display: inline-block;
-      border: 1px solid #ffcdd2;
-    }
-
-    .loading { text-align: center; padding: 20px; color: var(--primary-blue); font-weight: 600; }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
     
-    .info-box {
-      background: #e3f2fd;
-      border-left: 4px solid #1976d2;
-      padding: 10px 15px;
-      border-radius: 4px;
-      margin-bottom: 15px;
-      font-size: 12px;
-      color: #0d47a1;
-    }
+    <style>
+        :root {
+            --primary-blue: #005b9f;
+            --secondary-blue: #00457c;
+            --accent-yellow: #ffd600;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #2b2b2b;
+            --border-color: #dee2e6;
+        }
 
-    @media (max-width: 768px) {
-      body { padding: 10px; }
-      .header-card { flex-direction: column; align-items: flex-start; }
-      .filter-menu { width: 100%; justify-content: space-between; box-sizing: border-box; }
-      .card { padding: 10px; }
-    }
-  </style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-main);
+        }
+
+        .container {
+            max-width: 1200px; 
+            margin: auto;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 15px;
+            background: white;
+            padding: 10px 18px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+        .back-btn:hover { background: var(--bg-color); transform: translateX(-3px); }
+
+        .header-card {
+            background: linear-gradient(135deg, #6f42c1, #4e2a84); 
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 5px 15px rgba(111, 66, 193, 0.3);
+        }
+
+        .header-title h1 { margin: 0; font-size: 20px; }
+        .header-title p { margin: 0; color: var(--accent-yellow); font-size: 13px; }
+
+        .filter-menu {
+            background: rgba(255,255,255,0.1);
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-menu select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* ===== CSS DEFAULT TABEL ===== */
+        .table-responsive-wrapper { width: 100%; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: auto; min-width: 1000px; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 13px; vertical-align: middle; }
+        th { background-color: #f8f9fa; color: var(--primary-blue); font-weight: 600; }
+        tr:hover { background-color: #f1f5f9; }
+
+        /* ===== BUTTON & BADGES ===== */
+        .link-container { display: flex; flex-wrap: wrap; gap: 4px; }
+        .btn-photo { background: #e3f2fd; color: var(--primary-blue); padding: 5px 10px; border-radius: 6px; text-decoration: none; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; transition: 0.2s; border: 1px solid #90caf9; white-space: nowrap; }
+        .btn-photo:hover { background: var(--primary-blue); color: white; }
+        .btn-doc { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+        .btn-doc:hover { background: #2e7d32; color: white; }
+        
+        .badge-kosong { background: #f8f9fa; color: #adb5bd; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; display: inline-block; border: 1px solid #dee2e6; }
+        
+        /* Badge Status Keterangan Baru */
+        .badge-sudah { background: #d4edda; color: #155724; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid #c3e6cb; display: inline-block; letter-spacing: 0.5px; }
+        .badge-belum { background: #f8d7da; color: #721c24; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid #f5c6cb; display: inline-block; letter-spacing: 0.5px; }
+
+        .loading { text-align: center; padding: 20px; color: var(--primary-blue); font-weight: 600; }
+        .info-box { background: #e3f2fd; border-left: 4px solid #1976d2; padding: 10px 15px; border-radius: 4px; margin-bottom: 15px; font-size: 12px; color: #0d47a1; }
+
+        /* ===== MEDIA QUERY KHUSUS HP ===== */
+        @media screen and (max-width: 768px) {
+            body { padding: 10px; }
+            .header-card { flex-direction: column; align-items: flex-start; }
+            .filter-menu { width: 100%; justify-content: space-between; box-sizing: border-box; }
+            .card { padding: 10px; background: transparent; box-shadow: none; }
+            
+            table thead { display: none; }
+            table, tbody, tr, td { display: block; width: 100%; box-sizing: border-box; }
+            table { min-width: unset !important; }
+
+            tr { margin-bottom: 15px; background-color: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 10px; }
+            td { border-bottom: none; padding: 0; position: relative; display: flex; flex-direction: column; align-items: flex-start; }
+
+            /* Mapping Label Card Mobile */
+            td:nth-child(1), td:nth-child(3) { font-size: 12px; color: #6c757d; font-weight: 500; }
+            td:nth-child(1)::before { content: "Tanggal: "; font-weight: normal; }
+            
+            /* LABEL KETERANGAN DI HP */
+            td:nth-child(3)::before { content: "Keterangan: "; font-weight: normal; display: block; margin-bottom: 5px; }
+            
+            td:nth-child(2) { font-size: 16px; font-weight: 800; color: var(--primary-blue); border-bottom: 2px dashed #eee; padding-bottom: 10px; margin-bottom: 5px; }
+
+            td:nth-child(n+4)::before { font-size: 12px; font-weight: 700; color: #333; margin-bottom: 5px; display: block; }
+            td:nth-child(4)::before { content: "Foto Before:"; }
+            td:nth-child(5)::before { content: "Foto After:"; }
+            td:nth-child(6)::before { content: "Dokumen LHSO:"; }
+            td:nth-child(7)::before { content: "Dokumen BASO:"; }
+            td:nth-child(8)::before { content: "Foto Brankas:"; }
+
+            .btn-photo { padding: 8px 12px; font-size: 12px; }
+            .link-container { gap: 6px; }
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-  
-  <a href="index.html" class="back-btn">
-    <i class="fa-solid fa-arrow-left"></i> Kembali ke Menu Utama
-  </a>
+    <a href="index.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Kembali ke Menu Utama
+    </a>
 
-  <div class="header-card">
-    <div class="header-title" style="text-align: left;">
-      <h1><i class="fa-solid fa-camera-retro"></i> Dashboard Ceklist Foto & Dokumen</h1>
-      <p>Data SO Harian vs Laporan Masuk</p>
+    <div class="header-card">
+        <div class="header-title" style="text-align: left;">
+            <h1><i class="fa-solid fa-camera-retro"></i> Dashboard Ceklist Foto & Dokumen</h1>
+            <p>Data SO Harian vs Laporan Masuk</p>
+        </div>
+        
+        <div class="filter-menu">
+            <label style="color:white; font-size: 14px;">Bulan:</label>
+            <select id="bulanFilter" onchange="terapkanFilter()"></select>
+            <select id="tahunFilter" onchange="terapkanFilter()"></select>
+        </div>
     </div>
-    
-    <div class="filter-menu">
-      <label style="color:white; font-size: 14px;">Bulan:</label>
-      <select id="bulanFilter" onchange="terapkanFilter()">
-        </select>
-      <select id="tahunFilter" onchange="terapkanFilter()"></select>
-    </div>
-  </div>
 
-  <div class="card">
-    <div class="info-box">
-      <i class="fa-solid fa-circle-info"></i> Daftar toko di bawah ini diambil dari <b>Jadwal/Laporan SO Harian</b>. Status tombol akan otomatis mendeteksi apakah toko tersebut sudah upload di <b>Form Foto/Dokumen</b> di hari yang sama.
+    <div class="card">
+        <div class="info-box">
+            <i class="fa-solid fa-circle-info"></i> Daftar toko di bawah ini diambil dari <b>Jadwal/Laporan SO Harian</b>. Status tombol akan otomatis mendeteksi apakah toko tersebut sudah upload di <b>Form Foto/Dokumen</b> di hari yang sama.
+        </div>
+        
+        <div id="loading" class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Sinkronisasi 2 Database Spreadsheet...</div>
+        
+        <div class="table-responsive-wrapper">
+            <table id="tabelData" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Tanggal SO</th>
+                        <th>Kode Toko</th>
+                        <th>Keterangan</th> <th>Foto Before</th>
+                        <th>Foto After</th>
+                        <th>Dokumen LHSO</th>
+                        <th>Dokumen BASO</th>
+                        <th>Foto Brankas</th>
+                    </tr>
+                </thead>
+                <tbody id="isiTabel">
+                </tbody>
+            </table>
+        </div>
     </div>
-    
-    <div id="loading" class="loading"><i class="fa-solid fa-spinner fa-spin"></i> Sinkronisasi 2 Database Spreadsheet...</div>
-    
-    <table id="tabelData" style="display: none;">
-      <thead>
-        <tr>
-          <th>Tanggal SO</th>
-          <th>Kode Toko</th>
-          <th>PIC / Tim SO</th>
-          <th>Foto Before</th>
-          <th>Foto After</th>
-          <th>Dokumen LHSO</th>
-          <th>Dokumen BASO</th>
-          <th>Foto Brankas</th>
-        </tr>
-      </thead>
-      <tbody id="isiTabel">
-      </tbody>
-    </table>
-  </div>
 </div>
 
 <script>
-  // ==========================================
-  // PENTING: MASUKAN KEDUA URL APP SCRIPT DISINI
-  // ==========================================
-  
-  // 1. URL App Script dari Spreadsheet SO HARIAN (Untuk ambil daftar absen & PIC)
-  const urlSO = "https://script.google.com/macros/s/AKfycbxf0nwj3P7qI2wdYom2Ucdq86Y7PJVLbiIpBfZT27v-0tTuJbfe-VXC4B_JJH4Kfp2zGA/exec"; 
-  
-  // 2. URL App Script dari Spreadsheet FOTO/DOKUMEN (Untuk ambil link fotonya)
-  const urlFoto = "https://script.google.com/macros/s/AKfycby3hFk-KjJAbVi_nuIB7a1u2gAq0On_VtdsKlbQSwjVkwOocnBDNSIqDuDq_dREM-Vr/exec"; 
+    // ==========================================
+    // PENTING: MASUKAN KEDUA URL APP SCRIPT DISINI
+    // ==========================================
+    const urlSO = "https://script.google.com/macros/s/AKfycbxf0nwj3P7qI2wdYom2Ucdq86Y7PJVLbiIpBfZT27v-0tTuJbfe-VXC4B_JJH4Kfp2zGA/exec"; 
+    const urlFoto = "https://script.google.com/macros/s/AKfycby3hFk-KjJAbVi_nuIB7a1u2gAq0On_VtdsKlbQSwjVkwOocnBDNSIqDuDq_dREM-Vr/exec"; 
 
-  let dataSOGlobal = [];
-  let headerSO = [];
-  
-  let dataFotoGlobal = [];
-  let headerFoto = [];
+    let dataSOGlobal = [];
+    let headerSO = [];
+    let dataFotoGlobal = [];
+    let headerFoto = [];
 
-  window.onload = function() {
-    setupFilterWaktu();
-    fetchDataGabungan();
-  };
+    window.onload = function() {
+        setupFilterWaktu();
+        fetchDataGabungan();
+    };
 
-  function setupFilterWaktu() {
-    const bulanArr = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-    const blnSelect = document.getElementById("bulanFilter");
-    const sekarang = new Date();
-    
-    bulanArr.forEach((bln, idx) => {
-      let opt = document.createElement("option");
-      opt.value = idx + 1; opt.text = bln;
-      blnSelect.appendChild(opt);
-    });
-    blnSelect.value = sekarang.getMonth() + 1; 
-    
-    const thnSelect = document.getElementById("tahunFilter");
-    const thnSekarang = sekarang.getFullYear();
-    for(let i = thnSekarang - 1; i <= thnSekarang + 1; i++){
-      let opt = document.createElement("option");
-      opt.value = i; opt.text = i;
-      if(i === thnSekarang) opt.selected = true;
-      thnSelect.appendChild(opt);
-    }
-  }
-
-  // Narik 2 data sekaligus pakai Promise.all
-  function fetchDataGabungan() {
-    document.getElementById("loading").style.display = "block";
-    document.getElementById("tabelData").style.display = "none";
-
-    Promise.all([
-      fetch(urlSO).then(res => res.json()),
-      fetch(urlFoto).then(res => res.json())
-    ])
-    .then(([hasilSO, hasilFoto]) => {
-      headerSO = hasilSO[0];
-      dataSOGlobal = hasilSO.slice(1);
-
-      headerFoto = hasilFoto[0];
-      dataFotoGlobal = hasilFoto.slice(1);
-      
-      document.getElementById("loading").style.display = "none";
-      document.getElementById("tabelData").style.display = "table";
-      
-      terapkanFilter(); 
-    })
-    .catch(error => {
-      document.getElementById("loading").innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Gagal memuat data. Pastikan kedua link App Script sudah di-deploy dengan benar.";
-      console.error(error);
-    });
-  }
-
-  function cekTautanFoto(urlData, tipe) {
-    if (!urlData || urlData.trim() === "") return `<span class="badge-kosong">Belum Ada</span>`;
-    
-    let links = urlData.match(/(https?:\/\/[^\s]+)/g);
-    
-    if (links && links.length > 0) {
-      let icon = tipe === 'doc' ? 'fa-file-pdf' : 'fa-image';
-      let btnClass = tipe === 'doc' ? 'btn-photo btn-doc' : 'btn-photo';
-      
-      if (links.length === 1) {
-        return `<a href="${links[0]}" target="_blank" class="${btnClass}"><i class="fa-solid ${icon}"></i> Lihat</a>`;
-      } else {
-        let html = '<div class="link-container">';
-        links.forEach((link, idx) => {
-            html += `<a href="${link}" target="_blank" class="${btnClass}"><i class="fa-solid ${icon}"></i> ${idx + 1}</a>`;
+    function setupFilterWaktu() {
+        const bulanArr = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        const blnSelect = document.getElementById("bulanFilter");
+        const sekarang = new Date();
+        
+        bulanArr.forEach((bln, idx) => {
+            let opt = document.createElement("option");
+            opt.value = idx + 1; opt.text = bln;
+            blnSelect.appendChild(opt);
         });
-        html += '</div>';
-        return html;
-      }
-    } else {
-      return `<span class="badge-kosong">Belum Ada</span>`;
-    }
-  }
-
-  // Fungsi untuk menyamakan format tanggal agar bisa dicocokkan
-  function getStartOfDay(dateString) {
-    let d = new Date(dateString);
-    if (isNaN(d)) return null;
-    d.setHours(0,0,0,0);
-    return d.getTime();
-  }
-
-  function terapkanFilter() {
-    const blnPilih = parseInt(document.getElementById("bulanFilter").value);
-    const thnPilih = parseInt(document.getElementById("tahunFilter").value);
-    
-    // Index Data SO (Base Data)
-    const idxTglSO = headerSO.findIndex(h => h.toLowerCase().includes("tanggal"));
-    const idxTokoSO = headerSO.findIndex(h => h.toLowerCase().includes("toko"));
-    const idxPICSO = headerSO.findIndex(h => h.toLowerCase().includes("pic") || h.toLowerCase().includes("officer") || h.toLowerCase().includes("nama"));
-
-    // Index Data Foto
-    const idxTglF = headerFoto.findIndex(h => h.toLowerCase().includes("tanggal"));
-    const idxTokoF = headerFoto.findIndex(h => h.toLowerCase().includes("toko"));
-    const idxBefore = headerFoto.findIndex(h => h.toLowerCase().includes("before"));
-    const idxAfter = headerFoto.findIndex(h => h.toLowerCase().includes("after"));
-    const idxLHSO = headerFoto.findIndex(h => h.toLowerCase().includes("lhso"));
-    const idxBASO = headerFoto.findIndex(h => h.toLowerCase().includes("baso"));
-    const idxBrankas = headerFoto.findIndex(h => h.toLowerCase().includes("brankas"));
-
-    // 1. Filter Data SO berdasarkan bulan dan tahun
-    let dataSOBulanIni = dataSOGlobal.filter(row => {
-      let tgl = new Date(row[idxTglSO]);
-      if (isNaN(tgl)) return false; 
-      return (tgl.getMonth() + 1 === blnPilih) && (tgl.getFullYear() === thnPilih);
-    });
-
-    // Urutkan Data SO (Tanggal terbaru di atas)
-    dataSOBulanIni.sort((a, b) => new Date(b[idxTglSO]) - new Date(a[idxTglSO]));
-
-    const tbody = document.getElementById("isiTabel");
-    tbody.innerHTML = "";
-
-    if(dataSOBulanIni.length === 0) {
-      tbody.innerHTML = "<tr><td colspan='8' style='text-align:center; padding: 20px;'>Belum ada data SO Harian di bulan ini.</td></tr>";
-      return;
+        blnSelect.value = sekarang.getMonth() + 1; 
+        
+        const thnSelect = document.getElementById("tahunFilter");
+        const thnSekarang = sekarang.getFullYear();
+        for(let i = thnSekarang - 1; i <= thnSekarang + 1; i++){
+            let opt = document.createElement("option");
+            opt.value = i; opt.text = i;
+            if(i === thnSekarang) opt.selected = true;
+            thnSelect.appendChild(opt);
+        }
     }
 
-    // 2. Loop Data SO, lalu cari jodohnya di Data Foto
-    dataSOBulanIni.forEach(rowSO => {
-      let tglAsliSO = new Date(rowSO[idxTglSO]);
-      let tglRapiSO = tglAsliSO.toLocaleDateString('id-ID', {day: '2-digit', month: 'short', year: 'numeric'});
-      
-      // Ambil kunci pencarian (Waktu jam direset ke 00:00:00 agar gampang dicocokan)
-      let keyTglSO = getStartOfDay(rowSO[idxTglSO]);
-      let keyTokoSO = (rowSO[idxTokoSO] || "").trim().toLowerCase();
+    function fetchDataGabungan() {
+        document.getElementById("loading").style.display = "block";
+        document.getElementById("tabelData").style.display = "none";
 
-      // Cari di data foto yang tanggal & tokonya SAMA PERSIS
-      let matchFoto = dataFotoGlobal.find(rowF => {
-        let keyTglF = getStartOfDay(rowF[idxTglF]);
-        let keyTokoF = (rowF[idxTokoF] || "").trim().toLowerCase();
-        return keyTglF === keyTglSO && keyTokoF === keyTokoSO;
-      });
+        Promise.all([
+            fetch(urlSO).then(res => res.json()),
+            fetch(urlFoto).then(res => res.json())
+        ])
+        .then(([hasilSO, hasilFoto]) => {
+            headerSO = hasilSO[0];
+            dataSOGlobal = hasilSO.slice(1);
+            headerFoto = hasilFoto[0];
+            dataFotoGlobal = hasilFoto.slice(1);
+            
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("tabelData").style.display = "table";
+            
+            terapkanFilter(); 
+        })
+        .catch(error => {
+            document.getElementById("loading").innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Gagal memuat data. Pastikan kedua link App Script sudah di-deploy dengan benar.";
+            console.error(error);
+        });
+    }
 
-      // Kalau ketemu (matchFoto), ambil linknya. Kalau nggak ketemu, kasih string kosong ""
-      let valBefore = matchFoto && idxBefore !== -1 ? matchFoto[idxBefore] : "";
-      let valAfter  = matchFoto && idxAfter !== -1 ? matchFoto[idxAfter] : "";
-      let valLHSO   = matchFoto && idxLHSO !== -1 ? matchFoto[idxLHSO] : "";
-      let valBASO   = matchFoto && idxBASO !== -1 ? matchFoto[idxBASO] : "";
-      let valBrankas = matchFoto && idxBrankas !== -1 ? matchFoto[idxBrankas] : "";
+    function cekTautanFoto(urlData, tipe) {
+        if (!urlData || urlData.trim() === "") return `<span class="badge-kosong">-</span>`;
+        
+        let links = urlData.match(/(https?:\/\/[^\s]+)/g);
+        if (links && links.length > 0) {
+            let icon = tipe === 'doc' ? 'fa-file-pdf' : 'fa-image';
+            let btnClass = tipe === 'doc' ? 'btn-photo btn-doc' : 'btn-photo';
+            
+            if (links.length === 1) {
+                return `<a href="${links[0]}" target="_blank" class="${btnClass}"><i class="fa-solid ${icon}"></i> Lihat</a>`;
+            } else {
+                let html = '<div class="link-container">';
+                links.forEach((link, idx) => {
+                    html += `<a href="${link}" target="_blank" class="${btnClass}"><i class="fa-solid ${icon}"></i> ${idx + 1}</a>`;
+                });
+                html += '</div>';
+                return html;
+            }
+        } else {
+            return `<span class="badge-kosong">-</span>`;
+        }
+    }
 
-      // Render ke baris tabel
-      let tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td style="font-weight:600;">${tglRapiSO}</td>
-        <td style="font-weight:700; color:var(--primary-blue);">${rowSO[idxTokoSO] || '-'}</td>
-        <td>${idxPICSO !== -1 ? (rowSO[idxPICSO] || '-') : '-'}</td>
-        <td>${cekTautanFoto(valBefore, 'img')}</td>
-        <td>${cekTautanFoto(valAfter, 'img')}</td>
-        <td>${cekTautanFoto(valLHSO, 'doc')}</td>
-        <td>${cekTautanFoto(valBASO, 'doc')}</td>
-        <td>${cekTautanFoto(valBrankas, 'img')}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
+    function getStartOfDay(dateString) {
+        let d = new Date(dateString);
+        if (isNaN(d)) return null;
+        d.setHours(0,0,0,0);
+        return d.getTime();
+    }
+
+    function terapkanFilter() {
+        const blnPilih = parseInt(document.getElementById("bulanFilter").value);
+        const thnPilih = parseInt(document.getElementById("tahunFilter").value);
+        
+        const idxTglSO = headerSO.findIndex(h => h.toLowerCase().includes("tanggal"));
+        const idxTokoSO = headerSO.findIndex(h => h.toLowerCase().includes("toko"));
+
+        const idxTglF = headerFoto.findIndex(h => h.toLowerCase().includes("tanggal"));
+        const idxTokoF = headerFoto.findIndex(h => h.toLowerCase().includes("toko"));
+        const idxBefore = headerFoto.findIndex(h => h.toLowerCase().includes("before"));
+        const idxAfter = headerFoto.findIndex(h => h.toLowerCase().includes("after"));
+        const idxLHSO = headerFoto.findIndex(h => h.toLowerCase().includes("lhso"));
+        const idxBASO = headerFoto.findIndex(h => h.toLowerCase().includes("baso"));
+        const idxBrankas = headerFoto.findIndex(h => h.toLowerCase().includes("brankas"));
+
+        let dataSOBulanIni = dataSOGlobal.filter(row => {
+            let tgl = new Date(row[idxTglSO]);
+            if (isNaN(tgl)) return false; 
+            return (tgl.getMonth() + 1 === blnPilih) && (tgl.getFullYear() === thnPilih);
+        });
+
+        dataSOBulanIni.sort((a, b) => new Date(b[idxTglSO]) - new Date(a[idxTglSO]));
+
+        const tbody = document.getElementById("isiTabel");
+        tbody.innerHTML = "";
+
+        if(dataSOBulanIni.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='8' style='text-align:center; padding: 20px;'>Belum ada data SO Harian di bulan ini.</td></tr>";
+            return;
+        }
+
+        dataSOBulanIni.forEach(rowSO => {
+            let tglAsliSO = new Date(rowSO[idxTglSO]);
+            let tglRapiSO = tglAsliSO.toLocaleDateString('id-ID', {day: '2-digit', month: 'short', year: 'numeric'});
+            
+            let keyTglSO = getStartOfDay(rowSO[idxTglSO]);
+            let keyTokoSO = (rowSO[idxTokoSO] || "").trim().toLowerCase();
+
+            let matchFoto = dataFotoGlobal.find(rowF => {
+                let keyTglF = getStartOfDay(rowF[idxTglF]);
+                let keyTokoF = (rowF[idxTokoF] || "").trim().toLowerCase();
+                return keyTglF === keyTglSO && keyTokoF === keyTokoSO;
+            });
+
+            let valBefore = matchFoto && idxBefore !== -1 ? matchFoto[idxBefore] : "";
+            let valAfter  = matchFoto && idxAfter !== -1 ? matchFoto[idxAfter] : "";
+            let valLHSO   = matchFoto && idxLHSO !== -1 ? matchFoto[idxLHSO] : "";
+            let valBASO   = matchFoto && idxBASO !== -1 ? matchFoto[idxBASO] : "";
+            let valBrankas = matchFoto && idxBrankas !== -1 ? matchFoto[idxBrankas] : "";
+
+            // LOGIKA KETERANGAN: Kalo matchFoto ada (berarti udah ngirim form), set true
+            let isSudah = matchFoto ? true : false;
+            let statusBadge = isSudah 
+                ? '<span class="badge-sudah"><i class="fa-solid fa-check"></i> SUDAH</span>' 
+                : '<span class="badge-belum"><i class="fa-solid fa-xmark"></i> BELUM</span>';
+
+            let tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td style="font-weight:600;">${tglRapiSO}</td>
+                <td style="font-weight:700; color:var(--primary-blue);">${rowSO[idxTokoSO] || '-'}</td>
+                <td>${statusBadge}</td> <td>${cekTautanFoto(valBefore, 'img')}</td>
+                <td>${cekTautanFoto(valAfter, 'img')}</td>
+                <td>${cekTautanFoto(valLHSO, 'doc')}</td>
+                <td>${cekTautanFoto(valBASO, 'doc')}</td>
+                <td>${cekTautanFoto(valBrankas, 'img')}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
 </script>
 </body>
 </html>
