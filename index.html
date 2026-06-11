@@ -288,7 +288,7 @@
 
             <div class="modal-footer">
                 <div class="timer-text" id="timerInfo">
-                    Tombol laporan aktif dalam <span id="countdownText">15</span> detik...
+                    Tombol laporan aktif dalam <span id="countdownText">10</span> detik...
                 </div>
                 <button class="btn-continue" id="btnContinue" disabled onclick="masukLaporan()">
                     <i class="fa-solid fa-lock" style="margin-right: 8px;"></i> MENUNGGU...
@@ -317,8 +317,8 @@
             // Munculin Pop up
             document.getElementById('tutorialModal').style.display = 'flex';
             
-            // Set waktu 15 detik
-            let timeLeft = 15;
+            // Set waktu 10 detik
+            let timeLeft = 10;
             const textHitungMundur = document.getElementById('countdownText');
             const tombolLanjut = document.getElementById('btnContinue');
             const infoTimer = document.getElementById('timerInfo');
